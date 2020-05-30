@@ -10,7 +10,8 @@ import { Ionicons } from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
 import StartUpScreen from '../screens/StartUpScreen';
-import Auth from '../screens/Auth';
+import AuthScreen from '../screens/Auth';
+import AddressSearch from '../screens/AddressSearch';
 
 const defaultNavOptions = {
 	headerStyle: {
@@ -36,7 +37,8 @@ const AuthNavigator = createStackNavigator(
 
 const MainNavigator = createSwitchNavigator({
 	Start: StartUpScreen,
-	Auth: Auth,
+	Auth: AuthNavigator,
+	FindAddress: AddressSearch,
 });
 
 export default createAppContainer(MainNavigator);

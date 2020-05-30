@@ -1,15 +1,28 @@
-import React from 'react';
-import { StyleSheet, View, ActivityIndicator, Button } from 'react-native';
+import React, { useEffect } from 'react';
+import {
+	StyleSheet,
+	View,
+	ActivityIndicator,
+	AsyncStorage,
+} from 'react-native';
 import Colors from '../constants/Colors';
 
 const StartUpScreen = (props) => {
-	const goToAuth = () => {
-		props.navigation.navigate('Auth');
-	};
+	useEffect(() => {
+		const checkForToken = async () => {
+			const userData = await AsyncStorage.getItem('userData');
+
+			if (!userData) {
+				props.navigation.navigate('Auth');
+				return;
+			}
+		};
+		checkForToken();
+	}, []);
+
 	return (
 		<View style={styles.screen}>
-			{/* <ActivityIndicator size="large" color={Colors.primary} /> */}
-			<Button onPress={goToAuth} />
+			<ActivityIndicator size="large" color={Colors.primary} />
 		</View>
 	);
 };
