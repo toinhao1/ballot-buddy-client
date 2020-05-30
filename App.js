@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { SplashScreen, AppLoading } from 'expo';
 import * as Font from 'expo-font';
+
+import MainNavigator from './navigation/MainNavigator';
 
 SplashScreen.preventAutoHide();
 setTimeout(SplashScreen.hide, 2500);
@@ -26,20 +27,7 @@ const App = () => {
 			/>
 		);
 	}
-	return (
-		<View style={styles.container}>
-			<Text>Landing page for BallotBuddy</Text>
-		</View>
-	);
+	return <MainNavigator />;
 };
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-});
 
 export default App;
