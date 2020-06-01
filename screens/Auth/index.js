@@ -14,6 +14,7 @@ import Colors from '../../constants/Colors';
 import { styles } from './Styles';
 import { formReducer, FORM_INPUT_UPDATE } from './formReducer';
 
+// TODO: implement Sign in with Google button
 const AuthScreen = (props) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState();
