@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { SplashScreen, AppLoading } from 'expo';
 import * as Font from 'expo-font';
+import { Provider } from 'react-redux';
+
+import store from './store/configureStore';
 
 import MainNavigator from './navigation/MainNavigator';
 
@@ -27,7 +30,11 @@ const App = () => {
 			/>
 		);
 	}
-	return <MainNavigator />;
+	return (
+		<Provider store={store}>
+			<MainNavigator />
+		</Provider>
+	);
 };
 
 export default App;

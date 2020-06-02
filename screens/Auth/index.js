@@ -5,12 +5,15 @@ import {
 	ScrollView,
 	Button,
 	Alert,
+	ActivityIndicator,
 } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import Card from '../../components/Card';
 import Input from '../../components/Input';
 import Colors from '../../constants/Colors';
 
+import * as authActions from '../../store/actions/auth';
 import { styles } from './Styles';
 import { formReducer, FORM_INPUT_UPDATE } from './formReducer';
 
@@ -19,6 +22,8 @@ const AuthScreen = (props) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState();
 	const [isSignup, setIsSignup] = useState(false);
+
+	const dispatch = useDispatch();
 
 	const [formState, dispatchFormState] = useReducer(formReducer, {
 		inputValues: {
@@ -41,28 +46,28 @@ const AuthScreen = (props) => {
 	const authHandler = async () => {
 		let action;
 		if (formState.formIsValid) {
-			props.navigation.navigate('FindAddress');
 			console.log('This is functioning');
-			// if (isSignup) {
-			// 	action = authActions.signUp(
-			// 		formState.inputValues.email,
-			// 		formState.inputValues.password
-			// 	);
-			// } else {
-			// 	action = authActions.login(
-			// 		formState.inputValues.email,
-			// 		formState.inputValues.password
-			// 	);
-			// }
-			// setError(null);
-			// setIsLoading(true);
-			// try {
-			// 	await dispatch(action);
-			// 	props.navigation.navigate('Shop');
-			// } catch (err) {
-			// 	setError(err.message);
-			// 	setIsLoading(false);
-			// }
+			if (isSignup) {
+				action = authActions.signUp(
+					formState.inputValues.email,
+					formState.inputValues.password
+				);
+			} else {
+				action = authActions.login(
+					formState.inputValues.email,
+					formState.inputValues.password
+				);
+			}
+			setError(null);
+			setIsLoading(true);
+			try {
+				await dispatch(action);
+				props.navigation.navigate('FindAddress');
+			} catch (err) {
+				console.log(err);
+				setError(err.message);
+				setIsLoading(false);
+			}
 		} else {
 			return Alert.alert(
 				'Please correct your errors',
@@ -83,6 +88,7 @@ const AuthScreen = (props) => {
 		},
 		[dispatchFormState]
 	);
+
 	return (
 		<KeyboardAvoidingView style={styles.screen}>
 			{/* <LinearGradient colors={['#ffedff', '#ffe3ff']} style={styles.gradient}> */}
