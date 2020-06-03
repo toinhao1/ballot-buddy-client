@@ -1,6 +1,5 @@
 import { AsyncStorage } from 'react-native';
 import axios from 'axios';
-import { startAsync } from 'expo/build/AR';
 
 // Constants
 export const AUTHENTICATE = 'AUTHENTICATE';
@@ -11,54 +10,32 @@ export const authenticate = (token, userId) => (dispatch) => {
 };
 
 export const signUp = (email, password) => async (dispatch) => {
-	console.log('here');
-	const response = await axios.post('https://10.0.2.2/user/sign-up', {
+	const response = await axios.post('http://192.168.1.5:5000/user/sign-up', {
 		email,
 		password,
 	});
 
-	console.log(response);
-	if (!response.ok) {
-		const errResData = await response.json();
-		const errorId = errResData.error.message;
-		let message = 'Something went wrong';
-
-		if (errorId === 'EMAIL_EXISTS') {
-			message = 'This email already exists.';
-		}
-		throw new Error(message);
+	if (response.data.status === 400) {
+		throw new Error(response.data.error);
+	} else {
+		dispatch(login(email, password));
 	}
-
-	const resData = await response.json();
-
-	dispatch(authenticate(resData.idToken, resData.localId));
-	saveDataToStorage(resData.idToken, resData.localId);
 };
 
 export const login = (email, password) => async (dispatch) => {
-	const response = await axios.post('https://10.0.2.2/user/login', {
+	const response = await axios.post('http://192.168.1.5:5000/user/login', {
 		email,
 		password,
 	});
 	console.log(response);
+	const resData = response.data;
 
-	if (!response.ok) {
-		const errResData = await response.json();
-		const errorId = errResData.error.message;
-		let message = 'Something went wrong';
-
-		if (errorId === 'EMAIL_NOT_FOUND') {
-			message = 'This email could not be found';
-		} else if (errorId === 'INVALID_PASSWORD') {
-			message = 'Invlaid password entered';
-		}
-		throw new Error(message);
+	if (resData.status === 400) {
+		throw new Error(resData.error);
 	}
-	const resData = await response.json();
 
-	dispatch(authenticate(resData.idToken, resData.localId));
-
-	saveDataToStorage(resData.idToken, resData.localId);
+	dispatch(authenticate(resData.token, resData.userId));
+	saveDataToStorage(resData.token, resData.userId);
 };
 
 const saveDataToStorage = (token, userId) => {
