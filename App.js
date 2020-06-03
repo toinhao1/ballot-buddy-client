@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 
 import store from './store/configureStore';
 
-import MainNavigator from './navigation/MainNavigator';
+import NavigationContainer from './navigation/NavigationContainer';
 
 SplashScreen.preventAutoHide();
 setTimeout(SplashScreen.hide, 2500);
@@ -32,7 +32,7 @@ const App = () => {
 	}
 	return (
 		<Provider store={store}>
-			<MainNavigator />
+			<NavigationContainer />
 		</Provider>
 	);
 };

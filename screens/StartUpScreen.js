@@ -16,6 +16,7 @@ const StartUpScreen = (props) => {
 				props.navigation.navigate('Auth');
 				return;
 			}
+			props.navigation.navigate('MainLanding');
 		};
 		checkForToken();
 	}, []);

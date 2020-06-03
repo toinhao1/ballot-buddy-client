@@ -46,7 +46,6 @@ const AuthScreen = (props) => {
 	const authHandler = async () => {
 		let action;
 		if (formState.formIsValid) {
-			console.log('This is functioning');
 			if (isSignup) {
 				action = authActions.signUp(
 					formState.inputValues.email,
@@ -64,7 +63,6 @@ const AuthScreen = (props) => {
 				await dispatch(action);
 				props.navigation.navigate('FindAddress');
 			} catch (err) {
-				console.log(err);
 				setError(err.message);
 				setIsLoading(false);
 			}
