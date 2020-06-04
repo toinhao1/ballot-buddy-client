@@ -1,6 +1,8 @@
 import { AsyncStorage } from 'react-native';
 import axios from 'axios';
 
+import endpoints from '../../endpoints';
+
 // Constants
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const LOGOUT = 'LOGOUT';
@@ -10,7 +12,8 @@ export const authenticate = (token, userId) => (dispatch) => {
 };
 
 export const signUp = (email, password) => async (dispatch) => {
-	const response = await axios.post('http://192.168.1.5:5000/user/sign-up', {
+	console.log(endpoints.apiUrl);
+	const response = await axios.post(`${endpoints.apiUrl}user/sign-up`, {
 		email,
 		password,
 	});
@@ -23,7 +26,7 @@ export const signUp = (email, password) => async (dispatch) => {
 };
 
 export const login = (email, password) => async (dispatch) => {
-	const response = await axios.post('http://192.168.1.5:5000/user/login', {
+	const response = await axios.post(`${endpoints.apiUrl}user/login`, {
 		email,
 		password,
 	});
