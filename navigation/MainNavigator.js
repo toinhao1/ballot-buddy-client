@@ -67,7 +67,6 @@ const BuddyNavigator = createDrawerNavigator(
 							title="Logout"
 							color={Colors.primary}
 							onPress={() => {
-								console.log('log out');
 								dispatch(authActions.logout());
 								props.navigation.navigate('Auth');
 							}}

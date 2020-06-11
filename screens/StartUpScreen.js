@@ -26,7 +26,6 @@ const StartUpScreen = (props) => {
 			const { token, userId } = transFormedData;
 			//decode the token
 			let decoded = decode(token);
-			console.log(userData);
 			// get the time to then check if the token is expired
 			const currentTime = Date.now() / 1000;
 			if (decoded.exp < currentTime) {
