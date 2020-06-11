@@ -9,7 +9,12 @@ const AddressSearch = () => {
 		<View style={styles.screen}>
 			<Text>Address search input</Text>
 			<TextInput
-				style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+				style={{
+					width: '90%',
+					height: 40,
+					borderColor: 'gray',
+					borderWidth: 1,
+				}}
 				onChangeText={(text) => setInputValue(text)}
 				value={inputValue}
 			/>

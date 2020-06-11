@@ -18,19 +18,23 @@ const StartUpScreen = (props) => {
 		const checkForToken = async () => {
 			// get user data from device storage
 			const userData = await AsyncStorage.getItem('userData');
-			//decode the token
-			let decoded;
-			if (userData) {
-				decoded = decode(userData.token);
+			if (!userData) {
+				props.navigation.navigate('Auth');
+				return;
 			}
+			const transFormedData = JSON.parse(userData);
+			const { token, userId } = transFormedData;
+			//decode the token
+			let decoded = decode(token);
+			console.log(userData);
 			// get the time to then check if the token is expired
 			const currentTime = Date.now() / 1000;
-			if (!userData || decoded.exp < currentTime) {
+			if (decoded.exp < currentTime) {
 				props.navigation.navigate('Auth');
-				dispatch(auth.logout());
 				return;
 			}
 			props.navigation.navigate('Buddy');
+			dispatch(auth.authenticate(token, userId));
 		};
 		checkForToken();
 	}, []);

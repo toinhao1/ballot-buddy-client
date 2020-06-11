@@ -50,8 +50,8 @@ const AdminNavigator = createStackNavigator(
 
 const BuddyNavigator = createDrawerNavigator(
 	{
-		UserAccess: UserAccessNavigator,
-		Admin: AdminNavigator,
+		Dashboard: UserAccessNavigator,
+		Profile: AdminNavigator,
 	},
 	{
 		contentOptions: {

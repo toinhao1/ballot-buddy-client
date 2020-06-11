@@ -10,6 +10,7 @@ export const LOGOUT = 'LOGOUT';
 
 export const authenticate = (token, userId) => (dispatch) => {
 	dispatch({ type: AUTHENTICATE, userId, token });
+	setAuthToken(token);
 };
 
 export const signUp = (email, password) => async (dispatch) => {
