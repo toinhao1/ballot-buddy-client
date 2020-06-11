@@ -50,8 +50,8 @@ const AdminNavigator = createStackNavigator(
 
 const BuddyNavigator = createDrawerNavigator(
 	{
-		UserAccess: UserAccessNavigator,
-		Admin: AdminNavigator,
+		Dashboard: UserAccessNavigator,
+		Profile: AdminNavigator,
 	},
 	{
 		contentOptions: {
@@ -67,7 +67,6 @@ const BuddyNavigator = createDrawerNavigator(
 							title="Logout"
 							color={Colors.primary}
 							onPress={() => {
-								console.log('log out');
 								dispatch(authActions.logout());
 								props.navigation.navigate('Auth');
 							}}

@@ -5,18 +5,35 @@ import {
 	ActivityIndicator,
 	AsyncStorage,
 } from 'react-native';
+import decode from 'jwt-decode';
+import { useDispatch } from 'react-redux';
+
 import Colors from '../constants/Colors';
+import * as auth from '../store/actions/auth';
 
 const StartUpScreen = (props) => {
+	const dispatch = useDispatch();
+
 	useEffect(() => {
 		const checkForToken = async () => {
+			// get user data from device storage
 			const userData = await AsyncStorage.getItem('userData');
-
 			if (!userData) {
 				props.navigation.navigate('Auth');
 				return;
 			}
-			props.navigation.navigate('MainLanding');
+			const transFormedData = JSON.parse(userData);
+			const { token, userId } = transFormedData;
+			//decode the token
+			let decoded = decode(token);
+			// get the time to then check if the token is expired
+			const currentTime = Date.now() / 1000;
+			if (decoded.exp < currentTime) {
+				props.navigation.navigate('Auth');
+				return;
+			}
+			props.navigation.navigate('Buddy');
+			dispatch(auth.authenticate(token, userId));
 		};
 		checkForToken();
 	}, []);

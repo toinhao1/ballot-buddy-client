@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import axios from 'axios';
 
+import setAuthToken from '../../utils/setAuthToken';
 import endpoints from '../../endpoints';
 
 // Constants
@@ -9,11 +10,12 @@ export const LOGOUT = 'LOGOUT';
 
 export const authenticate = (token, userId) => (dispatch) => {
 	dispatch({ type: AUTHENTICATE, userId, token });
+	setAuthToken(token);
 };
 
 export const signUp = (email, password) => async (dispatch) => {
 	console.log(endpoints.apiUrl);
-	const response = await axios.post(`${endpoints.apiUrl}user/sign-up`, {
+	const response = await axios.post(`${endpoints.apiUrl}sign-up`, {
 		email,
 		password,
 	});
@@ -26,7 +28,7 @@ export const signUp = (email, password) => async (dispatch) => {
 };
 
 export const login = (email, password) => async (dispatch) => {
-	const response = await axios.post(`${endpoints.apiUrl}user/login`, {
+	const response = await axios.post(`${endpoints.apiUrl}login`, {
 		email,
 		password,
 	});
@@ -53,5 +55,6 @@ const saveDataToStorage = (token, userId) => {
 
 export const logout = () => {
 	AsyncStorage.removeItem('userData');
+	setAuthToken(false);
 	return { type: LOGOUT };
 };
