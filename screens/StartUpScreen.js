@@ -23,7 +23,8 @@ const StartUpScreen = (props) => {
 				return;
 			}
 			const transFormedData = JSON.parse(userData);
-			const { token, userId } = transFormedData;
+			const { token, userId, hasAddress } = transFormedData;
+			console.log(transFormedData);
 			//decode the token
 			let decoded = decode(token);
 			// get the time to then check if the token is expired
@@ -32,7 +33,11 @@ const StartUpScreen = (props) => {
 				props.navigation.navigate('Auth');
 				return;
 			}
-			props.navigation.navigate('Buddy');
+			if (hasAddress) {
+				props.navigation.navigate('Buddy');
+				return;
+			}
+			props.navigation.navigate('Address');
 			dispatch(auth.authenticate(token, userId));
 		};
 		checkForToken();

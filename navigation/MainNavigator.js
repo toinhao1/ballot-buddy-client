@@ -16,6 +16,7 @@ import StartUpScreen from '../screens/StartUpScreen';
 import AuthScreen from '../screens/Auth';
 import AddressSearch from '../screens/AddressSearch';
 import Home from '../screens/Home';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const defaultNavOptions = {
 	headerStyle: {
@@ -41,7 +42,7 @@ const UserAccessNavigator = createStackNavigator(
 
 const AdminNavigator = createStackNavigator(
 	{
-		AddressForm: AddressSearch,
+		Profile: ProfileScreen,
 	},
 	{
 		defaultNavigationOptions: defaultNavOptions,
@@ -87,9 +88,19 @@ const AuthNavigator = createStackNavigator(
 	}
 );
 
+const AddressNavigator = createStackNavigator(
+	{
+		Address: AddressSearch,
+	},
+	{
+		defaultNavigationOptions: defaultNavOptions,
+	}
+);
+
 const MainNavigator = createSwitchNavigator({
 	Start: StartUpScreen,
 	Auth: AuthNavigator,
+	Address: AddressNavigator,
 	Buddy: BuddyNavigator,
 });
 

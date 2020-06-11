@@ -1,12 +1,22 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput } from 'react-native';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import HeaderButton from '../../components/HeaderButton';
+import { ActivityIndicator, View, Text, TextInput } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { styles } from './Styles';
+import Colors from '../../constants/Colors';
 
-const AddressSearch = () => {
+const AddressSearch = (props) => {
+	const hasAddress = useSelector((state) => !!state.auth.userAddress);
 	const [inputValue, setInputValue] = useState('');
+	console.log(hasAddress);
+	if (hasAddress) {
+		props.navigation.navigate('Buddy');
+		return (
+			<View style={styles.screen}>
+				<ActivityIndicator size="large" color={Colors.primary} />
+			</View>
+		);
+	}
 	return (
 		<View style={styles.screen}>
 			<Text>Address search input</Text>
@@ -22,23 +32,6 @@ const AddressSearch = () => {
 			/>
 		</View>
 	);
-};
-
-AddressSearch.navigationOptions = (navData) => {
-	return {
-		headerTitle: 'Profile',
-		headerLeft: () => (
-			<HeaderButtons HeaderButtonComponent={HeaderButton}>
-				<Item
-					title="Menu"
-					iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
-					onPress={() => {
-						navData.navigation.toggleDrawer();
-					}}
-				/>
-			</HeaderButtons>
-		),
-	};
 };
 
 export default AddressSearch;
