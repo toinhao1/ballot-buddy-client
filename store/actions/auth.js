@@ -8,13 +8,12 @@ import endpoints from '../../endpoints';
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const LOGOUT = 'LOGOUT';
 
-export const authenticate = (token, userId) => (dispatch) => {
-	dispatch({ type: AUTHENTICATE, userId, token });
+export const authenticate = (token, userId, address) => (dispatch) => {
+	dispatch({ type: AUTHENTICATE, userId, token, address });
 	setAuthToken(token);
 };
 
 export const signUp = (email, password) => async (dispatch) => {
-	console.log(endpoints.apiUrl);
 	const response = await axios.post(`${endpoints.apiUrl}sign-up`, {
 		email,
 		password,
@@ -32,23 +31,23 @@ export const login = (email, password) => async (dispatch) => {
 		email,
 		password,
 	});
-	console.log(response);
 	const resData = response.data;
 
 	if (resData.status === 400) {
 		throw new Error(resData.error);
 	}
 
-	dispatch(authenticate(resData.token, resData.userId));
-	saveDataToStorage(resData.token, resData.userId);
+	dispatch(authenticate(resData.token, resData.userId, resData?.address));
+	saveDataToStorage(resData.token, resData.userId, !!resData?.address);
 };
 
-const saveDataToStorage = (token, userId) => {
+const saveDataToStorage = (token, userId, address) => {
 	AsyncStorage.setItem(
 		'userData',
 		JSON.stringify({
 			token,
 			userId,
+			hasAddress: address,
 		})
 	);
 };

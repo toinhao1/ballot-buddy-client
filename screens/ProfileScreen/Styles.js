@@ -6,10 +6,4 @@ export const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
-	formContainer: {
-		width: '80%',
-		maxWidth: 400,
-		maxHeight: 600,
-		padding: 20,
-	},
 });

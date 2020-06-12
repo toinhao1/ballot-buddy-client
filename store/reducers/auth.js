@@ -4,6 +4,7 @@ const initialState = {
 	token: null,
 	isLoggedIn: false,
 	userId: null,
+	userAddress: {},
 };
 
 export default (state = initialState, action) => {
@@ -13,6 +14,7 @@ export default (state = initialState, action) => {
 				...state,
 				token: action.token,
 				userId: action.userId,
+				userAdress: action.address,
 				isLoggedIn: true,
 			};
 		case LOGOUT:
