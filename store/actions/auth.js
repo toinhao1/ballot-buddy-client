@@ -37,7 +37,7 @@ export const login = (email, password) => async (dispatch) => {
 		throw new Error(resData.error);
 	}
 
-	dispatch(authenticate(resData.token, resData.userId, resData.address));
+	dispatch(authenticate(resData.token, resData.userId, resData?.address));
 	saveDataToStorage(resData.token, resData.userId, !!resData?.address);
 };
 
