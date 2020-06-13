@@ -154,4 +154,8 @@ const AddressSearch = (props) => {
 	);
 };
 
+AddressSearch.navigationOptions = {
+	headerTitle: 'Enter your address to find your Ballot!',
+};
+
 export default AddressSearch;

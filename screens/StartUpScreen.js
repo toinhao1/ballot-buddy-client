@@ -35,8 +35,10 @@ const StartUpScreen = (props) => {
 			}
 			if (hasAddress) {
 				props.navigation.navigate('Buddy');
+				dispatch(auth.authenticate(token, userId));
 				return;
 			}
+			// props.navigation.navigate('Buddy');
 			props.navigation.navigate('Address');
 			dispatch(auth.authenticate(token, userId));
 		};
