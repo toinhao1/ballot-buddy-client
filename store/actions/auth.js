@@ -8,11 +8,13 @@ import endpoints from '../../endpoints';
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const LOGOUT = 'LOGOUT';
 
+// send date to Redux Store and set header for acios requests
 export const authenticate = (token, userId, address) => (dispatch) => {
 	dispatch({ type: AUTHENTICATE, userId, token, address });
 	setAuthToken(token);
 };
 
+// register the user
 export const signUp = (email, password) => async (dispatch) => {
 	const response = await axios.post(`${endpoints.apiUrl}sign-up`, {
 		email,
@@ -26,6 +28,7 @@ export const signUp = (email, password) => async (dispatch) => {
 	}
 };
 
+// when user signs in
 export const login = (email, password) => async (dispatch) => {
 	const response = await axios.post(`${endpoints.apiUrl}login`, {
 		email,

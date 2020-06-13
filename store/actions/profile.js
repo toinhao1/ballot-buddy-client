@@ -3,20 +3,39 @@ import axios from 'axios';
 import endpoints from '../../endpoints';
 
 // Constants
-export const SET_ADDRESS = 'SET_ADDRESS';
+export const SEND_USER_ADDRESS = 'SEND_USER_ADDRESS';
+export const SEND_USER_PROFILE = 'SEND_USER_PROFILE';
 
-export const sendData = (address) => {
+export const sendAddress = (data) => {
 	return {
-		type: SET_ADDRESS,
-		address,
+		type: SEND_USER_ADDRESS,
+		payload: data,
+	};
+};
+
+export const sendUserProfile = (data) => {
+	return {
+		type: SEND_USER_PROFILE,
+		payload: data,
 	};
 };
 
 export const setAddress = (address) => async (dispatch) => {
-	const response = await axios.post(`${endpoints.apiUrl}address`, address);
+	const response = await axios.post(`${endpoints.apiUrl}set-address`, address);
 
 	if (response.data.status === 400) {
 		throw new Error(response.data.error);
 	}
-	dispatch(sendData(address));
+	dispatch(sendAddress(address));
+};
+
+export const getProfile = () => async (dispatch) => {
+	const response = await axios.get(`${endpoints.apiUrl}user-profile`);
+
+	const resData = response.data;
+
+	if (resData.status === 400) {
+		throw new Error(resData.error);
+	}
+	dispatch(sendUserProfile(resData.user));
 };
