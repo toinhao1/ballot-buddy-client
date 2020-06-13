@@ -6,4 +6,16 @@ export const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
+	emailCard: {
+		width: '80%',
+		maxWidth: 400,
+		maxHeight: 400,
+		padding: 20,
+	},
+	addressCard: {
+		width: '80%',
+		maxWidth: 400,
+		maxHeight: 400,
+		padding: 20,
+	},
 });
