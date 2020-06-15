@@ -27,11 +27,11 @@ const EditAddress = (props) => {
 
 	const [formState, dispatchFormState] = useReducer(formReducer, {
 		inputValues: {
-			street: '',
-			secondary: '',
-			city: '',
-			state: '',
-			zipCode: '',
+			street: user.address.street,
+			secondary: user.address.secondary,
+			city: user.address.city,
+			state: user.address.state,
+			zipCode: user.address.zipcode,
 		},
 		inputValidities: {
 			street: false,
@@ -94,6 +94,7 @@ const EditAddress = (props) => {
 						errorText="Please enter a valid street, suach as 123 Abd Street"
 						onInputChange={inputChangeHandler}
 						initialValue={user.address.street}
+						initiallyValid={true}
 					/>
 					<Input
 						id="secondary"
@@ -115,6 +116,7 @@ const EditAddress = (props) => {
 						errorText="Please enter a valid city name."
 						onInputChange={inputChangeHandler}
 						initialValue={user.address.city}
+						initiallyValid={true}
 					/>
 					<Input
 						id="state"
@@ -127,6 +129,7 @@ const EditAddress = (props) => {
 						errorText="Please enter a valid state."
 						onInputChange={inputChangeHandler}
 						initialValue={user.address.state}
+						initiallyValid={true}
 					/>
 					<Input
 						id="zipCode"
@@ -139,6 +142,7 @@ const EditAddress = (props) => {
 						errorText="Please enter a valid city zip code."
 						onInputChange={inputChangeHandler}
 						initialValue={user.address.zipcode}
+						initiallyValid={true}
 					/>
 					<View style={styles.buttonContainer}>
 						{isLoading ? (
@@ -155,6 +159,12 @@ const EditAddress = (props) => {
 			</Card>
 		</KeyboardAvoidingView>
 	);
+};
+
+EditAddress.navigationOptions = () => {
+	return {
+		headerTitle: 'Edit Your Address',
+	};
 };
 
 export default EditAddress;

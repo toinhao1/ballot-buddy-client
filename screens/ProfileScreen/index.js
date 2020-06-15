@@ -27,7 +27,7 @@ const ProfileScreen = (props) => {
 			}
 		};
 		getUserData();
-	}, []);
+	}, [dispatch]);
 
 	const editEmail = () => {
 		props.navigation.navigate('EmailForm');
