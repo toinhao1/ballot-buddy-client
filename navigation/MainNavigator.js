@@ -17,6 +17,8 @@ import AuthScreen from '../screens/Auth';
 import AddressSearch from '../screens/AddressSearch';
 import Home from '../screens/Home';
 import ProfileScreen from '../screens/ProfileScreen';
+import EditEmail from '../screens/EditEmail';
+import EditAddress from '../screens/EditAddress';
 
 const defaultNavOptions = {
 	headerStyle: {
@@ -43,6 +45,8 @@ const UserAccessNavigator = createStackNavigator(
 const AdminNavigator = createStackNavigator(
 	{
 		Profile: ProfileScreen,
+		EmailForm: EditEmail,
+		AddressForm: EditAddress,
 	},
 	{
 		defaultNavigationOptions: defaultNavOptions,
