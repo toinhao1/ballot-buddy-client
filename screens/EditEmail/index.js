@@ -14,6 +14,7 @@ import Card from '../../components/Card';
 import Input from '../../components/Input';
 import Colors from '../../constants/Colors';
 
+import { editUser } from '../../store/actions/profile';
 import { styles } from './Styles';
 import { formReducer, FORM_INPUT_UPDATE } from '../Auth/formReducer';
 
@@ -45,7 +46,7 @@ const EditEmail = (props) => {
 			setError(null);
 			setIsLoading(true);
 			try {
-				await dispatch(editUser(formState.inputValues));
+				await dispatch(editUser(formState.inputValues.email));
 				props.navigation.goBack();
 			} catch (err) {
 				setError(err.message);
