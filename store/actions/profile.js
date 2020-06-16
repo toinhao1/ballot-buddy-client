@@ -5,6 +5,7 @@ import endpoints from '../../endpoints';
 // Redux constants
 export const SEND_USER_ADDRESS = 'SEND_USER_ADDRESS';
 export const SEND_USER_PROFILE = 'SEND_USER_PROFILE';
+export const SEND_USER_EDITS = 'SEND_USER_EDITS';
 
 // reducer actions
 export const sendAddress = (data) => {
@@ -17,6 +18,13 @@ export const sendAddress = (data) => {
 export const sendUserProfile = (data) => {
 	return {
 		type: SEND_USER_PROFILE,
+		payload: data,
+	};
+};
+
+export const sendUserEdits = (data) => {
+	return {
+		type: SEND_USER_EDITS,
 		payload: data,
 	};
 };
@@ -39,4 +47,16 @@ export const getProfile = () => async (dispatch, getState) => {
 		throw new Error(resData.error);
 	}
 	dispatch(sendUserProfile(resData.user));
+};
+
+export const editUser = (email) => async (dispatch) => {
+	const response = await axios.put(`${endpoints.apiUrl}edit-user`, {
+		email,
+	});
+	const resData = response.data;
+
+	if (resData.status === 400) {
+		throw new Error(resData.error);
+	}
+	dispatch(sendUserEdits(email));
 };

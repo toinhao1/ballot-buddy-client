@@ -39,7 +39,6 @@ export const login = (email, password) => async (dispatch) => {
 	if (resData.status === 400) {
 		throw new Error(resData.error);
 	}
-	console.log(!!resData?.address);
 	dispatch(authenticate(resData.token, resData.userId, resData?.address));
 	saveDataToStorage(resData.token, resData.userId, !!resData?.address);
 };
