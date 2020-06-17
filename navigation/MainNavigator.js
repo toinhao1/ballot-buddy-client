@@ -7,7 +7,6 @@ import {
 import { createStackNavigator } from 'react-navigation-stack';
 import { Platform, SafeAreaView, Button, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { Ionicons } from '@expo/vector-icons';
 
 import * as authActions from '../store/actions/auth';
 
@@ -19,6 +18,8 @@ import Home from '../screens/Home';
 import ProfileScreen from '../screens/ProfileScreen';
 import EditEmail from '../screens/EditEmail';
 import EditAddress from '../screens/EditAddress';
+import CurrentReps from '../screens/CurrentReps';
+import CurrentBallot from '../screens/CurrentBallot';
 
 const defaultNavOptions = {
 	headerStyle: {
@@ -36,6 +37,8 @@ const defaultNavOptions = {
 const UserAccessNavigator = createStackNavigator(
 	{
 		MainLanding: Home,
+		CurrentRepresentatives: CurrentReps,
+		CurrentBallot: CurrentBallot,
 	},
 	{
 		defaultNavigationOptions: defaultNavOptions,
