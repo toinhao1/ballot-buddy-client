@@ -32,13 +32,14 @@ export const sendUserEdits = (data) => {
 // functioanl actions
 export const setAddress = (address) => async (dispatch) => {
 	const response = await axios.post(`${endpoints.apiUrl}set-address`, address);
+
 	if (response.data.status === 400) {
 		throw new Error(response.data.error);
 	}
 	dispatch(sendAddress(address));
 };
 
-export const getProfile = () => async (dispatch, getState) => {
+export const getProfile = () => async (dispatch) => {
 	const response = await axios.get(`${endpoints.apiUrl}user-profile`);
 
 	const resData = response.data;
