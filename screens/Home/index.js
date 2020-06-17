@@ -20,7 +20,7 @@ const Home = (props) => {
 
 Home.navigationOptions = (navData) => {
 	return {
-		headerTitle: 'DashBoard',
+		headerTitle: 'Dashboard',
 		headerLeft: () => (
 			<HeaderButtons HeaderButtonComponent={HeaderButton}>
 				<Item

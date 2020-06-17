@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-	screen: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
+	card: {
+		width: '90%',
+		// maxWidth: 400,
+		// maxHeight: 400,
+		padding: 20,
+		margin: 20,
 	},
 });
