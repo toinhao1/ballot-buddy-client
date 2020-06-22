@@ -22,10 +22,7 @@ const RepCard = (props) => {
 	return (
 		<Card style={styles.mainCard}>
 			<View style={styles.touchable}>
-				<TouchableCmp
-					onPress={() => console.log('pressed')}
-					useForeground={true}
-				>
+				<TouchableCmp onPress={props.onSelect} useForeground={true}>
 					<View style={styles.contentContainer}>
 						<View style={styles.imageContainer}>
 							{!props.photo ? (

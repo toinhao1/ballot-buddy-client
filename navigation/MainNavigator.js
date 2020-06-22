@@ -20,6 +20,7 @@ import EditEmail from '../screens/EditEmail';
 import EditAddress from '../screens/EditAddress';
 import CurrentReps from '../screens/CurrentReps';
 import CurrentBallot from '../screens/CurrentBallot';
+import CertainRep from '../screens/CertainRep';
 
 const defaultNavOptions = {
 	headerStyle: {
@@ -41,6 +42,7 @@ const UserAccessNavigator = createStackNavigator(
 		MainLanding: Home,
 		CurrentRepresentatives: CurrentReps,
 		CurrentBallot: CurrentBallot,
+		SelectedRep: CertainRep,
 	},
 	{
 		defaultNavigationOptions: defaultNavOptions,
