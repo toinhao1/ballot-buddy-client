@@ -1,9 +1,11 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-const CurrentBallot = () => {
+import { styles } from './Styles';
+
+const CurrentBallot = (props) => {
 	return (
-		<View>
+		<View style={styles.screen}>
 			<Text>Here are all of your current Reps</Text>
 		</View>
 	);

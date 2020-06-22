@@ -34,6 +34,8 @@ const defaultNavOptions = {
 	headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary,
 };
 
+// TODO create a stack navigator for reps and ballot
+
 const UserAccessNavigator = createStackNavigator(
 	{
 		MainLanding: Home,
