@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Button } from 'react-native';
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { styles } from './Styles';
@@ -16,9 +16,27 @@ const CertainRep = (props) => {
 				party={repData.party}
 			/>
 			<View style={styles.iconRow}>
-				<AntDesign name="facebook-square" size={24} color="black" />
-				<AntDesign name="twitter" size={24} color="black" />
-				<MaterialCommunityIcons name="web" size={24} color="black" />
+				<AntDesign.Button
+					backgroundColor="white"
+					name="facebook-square"
+					size={24}
+					color="black"
+					onPress={() => console.log('pressed')}
+				/>
+				<AntDesign.Button
+					backgroundColor="white"
+					name="twitter"
+					size={24}
+					color="black"
+					onPress={() => console.log('pressed')}
+				/>
+				<MaterialCommunityIcons.Button
+					backgroundColor="white"
+					name="web"
+					size={24}
+					color="black"
+					onPress={() => console.log('pressed')}
+				/>
 			</View>
 			<Text style={styles.title}>Recent News:</Text>
 			<Text>{repData.name}</Text>
