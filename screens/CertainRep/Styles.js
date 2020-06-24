@@ -8,7 +8,8 @@ export const styles = StyleSheet.create({
 	},
 	socialCard: {
 		width: '90%',
-		height: 125,
+		// height: 125,
+		padding: 10,
 	},
 	loadingScreen: {
 		flex: 1,

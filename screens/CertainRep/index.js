@@ -18,7 +18,6 @@ const CertainRep = (props) => {
 	const repData = props.navigation.getParam('repData');
 
 	const dispatch = useDispatch();
-	console.log(currentRepContactInfo);
 
 	useEffect(() => {
 		const callRepData = async (candidateId) => {
@@ -33,7 +32,7 @@ const CertainRep = (props) => {
 		callRepData(repData.candidate_id);
 	}, [dispatch]);
 
-	if (isLoading) {
+	if (isLoading || !currentRepContactInfo.address) {
 		return (
 			<View style={styles.loadingScreen}>
 				<ActivityIndicator size="large" color={Colors.primary} />
@@ -52,65 +51,68 @@ const CertainRep = (props) => {
 				/>
 				<Card style={styles.socialCard}>
 					<View style={styles.iconRow}>
-						{currentRepContactInfo.webAddresses &&
-							currentRepContactInfo.webAddresses['Website - Facebook'] && (
-								<AntDesign.Button
-									backgroundColor="white"
-									name="facebook-square"
-									size={24}
-									color="black"
-									onPress={() =>
-										WebBrowser.openBrowserAsync(
-											currentRepContactInfo.webAddresses['Website - Facebook']
-										)
-									}
-								/>
-							)}
-						{currentRepContactInfo.webAddresses &&
-							currentRepContactInfo.webAddresses['Website - Twitter'] && (
-								<AntDesign.Button
-									backgroundColor="white"
-									name="twitter"
-									size={24}
-									color="black"
-									onPress={() =>
-										WebBrowser.openBrowserAsync(
-											currentRepContactInfo.webAddresses['Website - Twitter']
-										)
-									}
-								/>
-							)}
-						{currentRepContactInfo.webAddresses &&
-							currentRepContactInfo.webAddresses['Website'] && (
-								<MaterialCommunityIcons.Button
-									backgroundColor="white"
-									name="web"
-									size={24}
-									color="black"
-									onPress={() =>
-										WebBrowser.openBrowserAsync(
-											currentRepContactInfo.webAddresses['Website']
-										)
-									}
-								/>
-							)}
-						{currentRepContactInfo.webAddresses &&
-							currentRepContactInfo.webAddresses['Email'] && (
-								<MaterialCommunityIcons.Button
-									backgroundColor="white"
-									name="email"
-									size={24}
-									color="black"
-									onPress={() =>
-										WebBrowser.openBrowserAsync(
-											`mailto:${currentRepContactInfo.webAddresses['Email']}`
-										)
-									}
-								/>
-							)}
+						{currentRepContactInfo.webAddresses['Website - Facebook'] && (
+							<AntDesign.Button
+								backgroundColor="white"
+								name="facebook-square"
+								size={24}
+								color="black"
+								onPress={() =>
+									WebBrowser.openBrowserAsync(
+										currentRepContactInfo.webAddresses['Website - Facebook']
+									)
+								}
+							/>
+						)}
+						{currentRepContactInfo.webAddresses['Website - Twitter'] && (
+							<AntDesign.Button
+								backgroundColor="white"
+								name="twitter"
+								size={24}
+								color="black"
+								onPress={() =>
+									WebBrowser.openBrowserAsync(
+										currentRepContactInfo.webAddresses['Website - Twitter']
+									)
+								}
+							/>
+						)}
+						{currentRepContactInfo.webAddresses['Website'] && (
+							<MaterialCommunityIcons.Button
+								backgroundColor="white"
+								name="web"
+								size={24}
+								color="black"
+								onPress={() =>
+									WebBrowser.openBrowserAsync(
+										currentRepContactInfo.webAddresses['Website']
+									)
+								}
+							/>
+						)}
+						{currentRepContactInfo.webAddresses['Email'] && (
+							<MaterialCommunityIcons.Button
+								backgroundColor="white"
+								name="email"
+								size={24}
+								color="black"
+								onPress={() =>
+									WebBrowser.openBrowserAsync(
+										`mailto:${currentRepContactInfo.webAddresses['Email']}`
+									)
+								}
+							/>
+						)}
 					</View>
 					<View>
 						<Text>Phone: {currentRepContactInfo.phoneNumber}</Text>
+						<Text>Address: </Text>
+						<Text>{currentRepContactInfo?.address.street}</Text>
+						<Text>
+							{currentRepContactInfo?.address.city},{' '}
+							{currentRepContactInfo?.address.state + ''}
+							{currentRepContactInfo?.address.zip}{' '}
+						</Text>
 					</View>
 				</Card>
 				<Text style={styles.title}>Recent News:</Text>
