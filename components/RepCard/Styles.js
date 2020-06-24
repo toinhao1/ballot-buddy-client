@@ -1,11 +1,30 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-	card: {
+	mainCard: {
 		width: '90%',
-		// maxWidth: 400,
-		// maxHeight: 400,
-		padding: 20,
+		maxHeight: 400,
 		margin: 20,
+	},
+	touchable: {
+		borderRadius: 10,
+		overflow: 'hidden',
+	},
+	contentContainer: {
+		padding: 10,
+		flexDirection: 'row',
+		// justifyContent: 'space-between',
+		alignItems: 'center',
+		overflow: 'hidden',
+	},
+	image: {
+		width: '100%',
+		height: '100%',
+	},
+	imageContainer: {
+		width: 125,
+		height: 125,
+		overflow: 'hidden',
+		marginRight: 10,
 	},
 });

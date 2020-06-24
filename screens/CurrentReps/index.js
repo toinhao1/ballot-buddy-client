@@ -25,6 +25,12 @@ const CurrentReps = (props) => {
 		callReps();
 	}, [dispatch]);
 
+	const selectRepHandler = (repData) => {
+		props.navigation.navigate('SelectedRep', {
+			repData,
+		});
+	};
+
 	if (isLoading) {
 		return (
 			<View style={styles.screen}>
@@ -37,13 +43,15 @@ const CurrentReps = (props) => {
 		<FlatList
 			data={reps}
 			keyExtractor={(item) => item.candidate_id.toString()}
-			// contentContainerStyle={styles.screen}
 			renderItem={(itemData) => (
 				<RepCard
 					photo={itemData.item.photo}
 					office={itemData.item.office}
 					name={itemData.item.name}
 					party={itemData.item.party}
+					onSelect={() => {
+						selectRepHandler(itemData.item);
+					}}
 				/>
 			)}
 		/>

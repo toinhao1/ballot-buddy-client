@@ -13,7 +13,10 @@ const Home = (props) => {
 				onPress={() => props.navigation.navigate('CurrentRepresentatives')}
 			/>
 			<Text>This is a users main page. </Text>
-			<Button title="Current Ballot" />
+			<Button
+				title="Current Ballot"
+				onPress={() => props.navigation.navigate('CurrentBallot')}
+			/>
 		</View>
 	);
 };
