@@ -35,7 +35,6 @@ export const login = (email, password) => async (dispatch) => {
 		password,
 	});
 	const resData = response.data;
-
 	if (resData.status === 400) {
 		throw new Error(resData.error);
 	}

@@ -116,8 +116,45 @@ const CertainRep = (props) => {
 					</View>
 				</Card>
 				<Text style={styles.title}>Recent News:</Text>
-				<Text>{repData.name}</Text>
+				{currentRepContactInfo.newsArticles.map((article) => {
+					return (
+						<Card>
+							<View key={article.description}>
+								<Text
+									onPress={() => WebBrowser.openBrowserAsync(`${article.url}`)}
+								>
+									{article.title}
+								</Text>
+								<Text>Source: {article.source.name}</Text>
+							</View>
+						</Card>
+					);
+				})}
+
 				<Text style={styles.title}>Political Experience:</Text>
+				{currentRepContactInfo.politicalExperience.map((experience) => {
+					return (
+						<Card>
+							<View key={experience.span || 'oceasc'}>
+								<Text>{experience.title}</Text>
+								<Text>{experience.organization}</Text>
+								<Text>{experience.span || ''}</Text>
+							</View>
+						</Card>
+					);
+				})}
+				<Text style={styles.title}>Professional Experience:</Text>
+				{currentRepContactInfo.professionalExperience.map((experience) => {
+					return (
+						<Card>
+							<View key={experience.span || 'oceasc'}>
+								<Text>{experience.title}</Text>
+								<Text>{experience.organization}</Text>
+								<Text>{experience.span || ''}</Text>
+							</View>
+						</Card>
+					);
+				})}
 			</View>
 		</ScrollView>
 	);

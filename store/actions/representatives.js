@@ -38,11 +38,19 @@ export const getSelectedRepContactInfo = (candidateId) => async (dispatch) => {
 	response.data.data.webaddress.address.forEach((webSite) => {
 		webSiteObject[webSite.webAddressType] = webSite.webAddress;
 	});
-
 	const repData = {
-		address: response.data.data.address,
-		phoneNumber: response.data.data.phone.phone1,
+		address: response.data.data.address || '',
+		phoneNumber: response.data.data.phone.phone1 || '',
 		webAddresses: webSiteObject,
+		politicalExperience: response.data.additionalData.political.experience.slice(
+			0,
+			5
+		),
+		professionalExperience: response.data.additionalData.professional.experience.slice(
+			0,
+			5
+		),
+		newsArticles: response.data.newsArticles.articles,
 	};
 	dispatch(sendSelectedRepData(repData));
 };

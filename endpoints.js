@@ -1,7 +1,9 @@
 import { Platform } from 'react-native';
 
 const localhost =
-	Platform.OS === 'ios' ? 'http://localhost:5000/' : 'http://192.168.1.5:5000/';
+	Platform.OS === 'ios'
+		? 'http://localhost:5000/'
+		: 'http://192.168.1.10:5000/';
 
 const ENV = {
 	dev: {
