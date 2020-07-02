@@ -35,21 +35,29 @@ export const getSelectedRepContactInfo = (candidateId) => async (dispatch) => {
 		{ candidateId }
 	);
 	let webSiteObject = {};
-	response.data.data.webaddress.address.forEach((webSite) => {
-		webSiteObject[webSite.webAddressType] = webSite.webAddress;
-	});
+	if (response.data.addressData.webaddress.address) {
+		response.data.addressData.webaddress.address.forEach((webSite) => {
+			webSiteObject[webSite.webAddressType] = webSite.webAddress;
+		});
+	}
+
 	const repData = {
-		address: response.data.data.address || '',
-		phoneNumber: response.data.data.phone.phone1 || '',
+		address: response.data.addressData?.office?.address || null,
+		phoneNumber: response.data.addressData?.office?.phone?.phone1 || null,
 		webAddresses: webSiteObject,
-		politicalExperience: response.data.additionalData.political.experience.slice(
-			0,
-			5
-		),
-		professionalExperience: response.data.additionalData.professional.experience.slice(
-			0,
-			5
-		),
+		// If the data is in an array slice the first 5 elements otherwise return the object in an array
+		politicalExperience: Array.isArray(
+			response.data.additionalData.political.experience
+		)
+			? response.data.additionalData.political.experience.slice(0, 5)
+			: [response.data.additionalData.political.experience] || '',
+		// If the data is in an array slice the first 5 elements otherwise return the object in an array
+
+		professionalExperience: Array.isArray(
+			response.data.additionalData.professional.experience
+		)
+			? response.data.additionalData.professional.experience.slice(0, 5)
+			: [response.data.additionalData.professional.experience] || '',
 		newsArticles: response.data.newsArticles.articles,
 	};
 	dispatch(sendSelectedRepData(repData));

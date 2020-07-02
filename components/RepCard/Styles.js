@@ -13,7 +13,6 @@ export const styles = StyleSheet.create({
 	contentContainer: {
 		padding: 10,
 		flexDirection: 'row',
-		// justifyContent: 'space-between',
 		alignItems: 'center',
 		overflow: 'hidden',
 	},
@@ -26,5 +25,8 @@ export const styles = StyleSheet.create({
 		height: 125,
 		overflow: 'hidden',
 		marginRight: 10,
+	},
+	textContainer: {
+		width: '65%',
 	},
 });

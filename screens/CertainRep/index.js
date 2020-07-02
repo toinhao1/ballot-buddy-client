@@ -9,6 +9,7 @@ import { styles } from './Styles';
 import RepCard from '../../components/RepCard';
 import Colors from '../../constants/Colors';
 import Card from '../../components/Card';
+import RepDataCard from '../../components/RepDataCard';
 
 const CertainRep = (props) => {
 	const [isLoading, setIsLoading] = useState();
@@ -32,7 +33,7 @@ const CertainRep = (props) => {
 		callRepData(repData.candidate_id);
 	}, [dispatch]);
 
-	if (isLoading || !currentRepContactInfo.address) {
+	if (isLoading || !currentRepContactInfo.newsArticles) {
 		return (
 			<View style={styles.loadingScreen}>
 				<ActivityIndicator size="large" color={Colors.primary} />
@@ -105,21 +106,30 @@ const CertainRep = (props) => {
 						)}
 					</View>
 					<View>
-						<Text>Phone: {currentRepContactInfo.phoneNumber}</Text>
-						<Text>Address: </Text>
-						<Text>{currentRepContactInfo?.address.street}</Text>
 						<Text>
-							{currentRepContactInfo?.address.city},{' '}
-							{currentRepContactInfo?.address.state + ''}
-							{currentRepContactInfo?.address.zip}{' '}
+							Phone: {currentRepContactInfo.phoneNumber || 'Not Available'}
 						</Text>
+
+						<Text>
+							Address: {!currentRepContactInfo.address && 'Not Available'}
+						</Text>
+						{currentRepContactInfo.address && (
+							<View>
+								<Text>{currentRepContactInfo?.address.street}</Text>
+								<Text>
+									{currentRepContactInfo?.address.city + ' '}
+									{currentRepContactInfo?.address.state + ', '}
+									{currentRepContactInfo?.address.zip}{' '}
+								</Text>
+							</View>
+						)}
 					</View>
 				</Card>
 				<Text style={styles.title}>Recent News:</Text>
 				{currentRepContactInfo.newsArticles.map((article) => {
 					return (
-						<Card>
-							<View key={article.description}>
+						<RepDataCard>
+							<View key={article.description + '8768686'}>
 								<Text
 									onPress={() => WebBrowser.openBrowserAsync(`${article.url}`)}
 								>
@@ -127,34 +137,36 @@ const CertainRep = (props) => {
 								</Text>
 								<Text>Source: {article.source.name}</Text>
 							</View>
-						</Card>
+						</RepDataCard>
 					);
 				})}
 
 				<Text style={styles.title}>Political Experience:</Text>
-				{currentRepContactInfo.politicalExperience.map((experience) => {
-					return (
-						<Card>
-							<View key={experience.span || 'oceasc'}>
-								<Text>{experience.title}</Text>
-								<Text>{experience.organization}</Text>
-								<Text>{experience.span || ''}</Text>
-							</View>
-						</Card>
-					);
-				})}
+				{Array.isArray(currentRepContactInfo.politicalExperience) &&
+					currentRepContactInfo.politicalExperience.map((experience) => {
+						return (
+							<RepDataCard>
+								<View key={experience?.span || 'oceasc'}>
+									<Text>{experience?.title || ''}</Text>
+									<Text>{experience?.organization || ''}</Text>
+									<Text>{experience?.span || ''}</Text>
+								</View>
+							</RepDataCard>
+						);
+					})}
 				<Text style={styles.title}>Professional Experience:</Text>
-				{currentRepContactInfo.professionalExperience.map((experience) => {
-					return (
-						<Card>
-							<View key={experience.span || 'oceasc'}>
-								<Text>{experience.title}</Text>
-								<Text>{experience.organization}</Text>
-								<Text>{experience.span || ''}</Text>
-							</View>
-						</Card>
-					);
-				})}
+				{currentRepContactInfo.professionalExperience &&
+					currentRepContactInfo.professionalExperience.map((experience) => {
+						return (
+							<RepDataCard>
+								<View key={experience?.span || 'oceasc'}>
+									<Text>{experience?.title || ''}</Text>
+									<Text>{experience?.organization || ''}</Text>
+									<Text>{experience?.span || ''}</Text>
+								</View>
+							</RepDataCard>
+						);
+					})}
 			</View>
 		</ScrollView>
 	);
