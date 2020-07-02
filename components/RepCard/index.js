@@ -34,8 +34,10 @@ const RepCard = (props) => {
 								<Image style={styles.image} source={{ uri: props.photo }} />
 							)}
 						</View>
-						<View>
-							<Text>{props.office}</Text>
+						<View style={styles.textContainer}>
+							<Text ellipsizeMode="tail" numberOfLines={2}>
+								{props.office}
+							</Text>
 							<Text>{props.name}</Text>
 							<Text>{props.party}</Text>
 						</View>
