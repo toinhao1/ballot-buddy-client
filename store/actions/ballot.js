@@ -1,3 +1,6 @@
+import axios from 'axios';
+import endpoints from '../../endpoints';
+
 export const GET_CURRENT_BALLOT = 'GET_CURRENT_BALLOT';
 
 export const sendCurrentBallot = (data) => {
@@ -13,5 +16,6 @@ export const getCurrentBallot = () => async (dispatch) => {
 	const response = await axios.get(
 		`${endpoints.apiUrl}current-representatives/ballot`
 	);
+
 	dispatch(sendCurrentBallot(response.data.data));
 };
