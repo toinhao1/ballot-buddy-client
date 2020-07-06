@@ -22,12 +22,17 @@ const CurrentReps = (props) => {
 				console.log(err);
 			}
 		};
+		// if (reps.length == 0) {
 		callReps();
+		// }
 	}, [dispatch]);
 
 	const selectRepHandler = (repData) => {
 		props.navigation.navigate('SelectedRep', {
-			repData,
+			data: {
+				repData,
+				isForBallot: false,
+			},
 		});
 	};
 

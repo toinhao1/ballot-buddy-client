@@ -20,9 +20,9 @@ export const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-around',
 		alignItems: 'center',
-		height: 30,
+		height: 40,
 		paddingHorizontal: 10,
-		marginTop: 10,
+		marginVertical: 10,
 	},
 	title: {
 		fontFamily: 'open-sans-bold',

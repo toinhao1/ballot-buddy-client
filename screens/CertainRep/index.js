@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, ActivityIndicator, ScrollView } from 'react-native';
+import {
+	Text,
+	View,
+	ActivityIndicator,
+	ScrollView,
+	SafeAreaView,
+} from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,21 +22,21 @@ const CertainRep = (props) => {
 	const currentRepContactInfo = useSelector(
 		(state) => state.representatives.selectedRepInfo
 	);
-	const repData = props.navigation.getParam('repData');
+	const { repData, isForBallot } = props.navigation.getParam('data');
 
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		const callRepData = async (candidateId) => {
+		const callRepData = async (repData, isForBallot) => {
 			setIsLoading(true);
 			try {
-				await dispatch(getSelectedRepContactInfo(candidateId));
+				await dispatch(getSelectedRepContactInfo(repData, isForBallot));
 				setIsLoading(false);
 			} catch (err) {
 				console.log(err);
 			}
 		};
-		callRepData(repData.candidate_id);
+		callRepData(repData, isForBallot);
 	}, [dispatch]);
 
 	if (isLoading || !currentRepContactInfo.newsArticles) {
@@ -42,133 +48,141 @@ const CertainRep = (props) => {
 	}
 
 	return (
-		<ScrollView>
-			<View style={styles.screen}>
-				<RepCard
-					photo={repData.photo}
-					office={repData.office}
-					name={repData.name}
-					party={repData.party}
-				/>
-				<Card style={styles.socialCard}>
-					<View style={styles.iconRow}>
-						{currentRepContactInfo.webAddresses['Website - Facebook'] && (
-							<AntDesign.Button
-								backgroundColor="white"
-								name="facebook-square"
-								size={24}
-								color="black"
-								onPress={() =>
-									WebBrowser.openBrowserAsync(
-										currentRepContactInfo.webAddresses['Website - Facebook']
-									)
-								}
-							/>
-						)}
-						{currentRepContactInfo.webAddresses['Website - Twitter'] && (
-							<AntDesign.Button
-								backgroundColor="white"
-								name="twitter"
-								size={24}
-								color="black"
-								onPress={() =>
-									WebBrowser.openBrowserAsync(
-										currentRepContactInfo.webAddresses['Website - Twitter']
-									)
-								}
-							/>
-						)}
-						{currentRepContactInfo.webAddresses['Website'] && (
-							<MaterialCommunityIcons.Button
-								backgroundColor="white"
-								name="web"
-								size={24}
-								color="black"
-								onPress={() =>
-									WebBrowser.openBrowserAsync(
-										currentRepContactInfo.webAddresses['Website']
-									)
-								}
-							/>
-						)}
-						{currentRepContactInfo.webAddresses['Email'] && (
-							<MaterialCommunityIcons.Button
-								backgroundColor="white"
-								name="email"
-								size={24}
-								color="black"
-								onPress={() =>
-									WebBrowser.openBrowserAsync(
-										`mailto:${currentRepContactInfo.webAddresses['Email']}`
-									)
-								}
-							/>
-						)}
-					</View>
-					<View>
-						<Text>
-							Phone: {currentRepContactInfo.phoneNumber || 'Not Available'}
-						</Text>
+		<SafeAreaView>
+			<ScrollView>
+				<View style={styles.screen}>
+					<RepCard
+						photo={repData.photo}
+						office={repData.office}
+						name={repData.name}
+						party={repData.party}
+					/>
+					<Card style={styles.socialCard}>
+						<View style={styles.iconRow}>
+							{currentRepContactInfo.webAddresses['Website - Facebook'] && (
+								<AntDesign.Button
+									backgroundColor="white"
+									name="facebook-square"
+									size={24}
+									color="black"
+									onPress={() =>
+										WebBrowser.openBrowserAsync(
+											currentRepContactInfo.webAddresses['Website - Facebook']
+										)
+									}
+								/>
+							)}
+							{currentRepContactInfo.webAddresses['Website - Twitter'] && (
+								<AntDesign.Button
+									backgroundColor="white"
+									name="twitter"
+									size={24}
+									color="black"
+									onPress={() =>
+										WebBrowser.openBrowserAsync(
+											currentRepContactInfo.webAddresses['Website - Twitter']
+										)
+									}
+								/>
+							)}
+							{currentRepContactInfo.webAddresses['Website'] && (
+								<MaterialCommunityIcons.Button
+									backgroundColor="white"
+									name="web"
+									size={24}
+									color="black"
+									onPress={() =>
+										WebBrowser.openBrowserAsync(
+											currentRepContactInfo.webAddresses['Website']
+										)
+									}
+								/>
+							)}
+							{currentRepContactInfo.webAddresses['Email'] && (
+								<MaterialCommunityIcons.Button
+									backgroundColor="white"
+									name="email"
+									size={24}
+									color="black"
+									onPress={() =>
+										WebBrowser.openBrowserAsync(
+											`mailto:${currentRepContactInfo.webAddresses['Email']}`
+										)
+									}
+								/>
+							)}
+						</View>
+						<View>
+							<Text>
+								Phone: {currentRepContactInfo.phoneNumber || 'Not Available'}
+							</Text>
 
-						<Text>
-							Address: {!currentRepContactInfo.address && 'Not Available'}
-						</Text>
-						{currentRepContactInfo.address && (
-							<View>
-								<Text>{currentRepContactInfo?.address.street}</Text>
-								<Text>
-									{currentRepContactInfo?.address.city + ' '}
-									{currentRepContactInfo?.address.state + ', '}
-									{currentRepContactInfo?.address.zip}{' '}
-								</Text>
-							</View>
-						)}
-					</View>
-				</Card>
-				<Text style={styles.title}>Recent News:</Text>
-				{currentRepContactInfo.newsArticles.map((article) => {
-					return (
-						<RepDataCard>
-							<View key={article.description + '8768686'}>
-								<Text
-									onPress={() => WebBrowser.openBrowserAsync(`${article.url}`)}
-								>
-									{article.title}
-								</Text>
-								<Text>Source: {article.source.name}</Text>
-							</View>
-						</RepDataCard>
-					);
-				})}
-
-				<Text style={styles.title}>Political Experience:</Text>
-				{Array.isArray(currentRepContactInfo.politicalExperience) &&
-					currentRepContactInfo.politicalExperience.map((experience) => {
+							<Text>
+								Address: {!currentRepContactInfo.address && 'Not Available'}
+							</Text>
+							{currentRepContactInfo.address && (
+								<View>
+									<Text>{currentRepContactInfo?.address.street}</Text>
+									<Text>
+										{currentRepContactInfo.address.city + ' '}
+										{currentRepContactInfo.address.state + ', '}
+										{currentRepContactInfo.address.zip}{' '}
+									</Text>
+								</View>
+							)}
+						</View>
+					</Card>
+					<Text style={styles.title}>Recent News:</Text>
+					{currentRepContactInfo.newsArticles.map((article) => {
 						return (
 							<RepDataCard>
-								<View key={experience?.span || 'oceasc'}>
-									<Text>{experience?.title || ''}</Text>
-									<Text>{experience?.organization || ''}</Text>
-									<Text>{experience?.span || ''}</Text>
+								<View key={article.description + '8768686'}>
+									<Text
+										onPress={() =>
+											WebBrowser.openBrowserAsync(`${article.url}`)
+										}
+									>
+										{article.title}
+									</Text>
+									<Text>Source: {article.source.name}</Text>
 								</View>
 							</RepDataCard>
 						);
 					})}
-				<Text style={styles.title}>Professional Experience:</Text>
-				{currentRepContactInfo.professionalExperience &&
-					currentRepContactInfo.professionalExperience.map((experience) => {
-						return (
-							<RepDataCard>
-								<View key={experience?.span || 'oceasc'}>
-									<Text>{experience?.title || ''}</Text>
-									<Text>{experience?.organization || ''}</Text>
-									<Text>{experience?.span || ''}</Text>
-								</View>
-							</RepDataCard>
-						);
-					})}
-			</View>
-		</ScrollView>
+
+					<Text style={styles.title}>Political Experience:</Text>
+					{Array.isArray(currentRepContactInfo.politicalExperience) &&
+						currentRepContactInfo.politicalExperience.map((experience) => {
+							if (experience) {
+								return (
+									<RepDataCard>
+										<View key={experience?.span || ''}>
+											<Text>{experience.title || ''}</Text>
+											<Text>{experience.organization || ''}</Text>
+											<Text>{experience?.span || ''}</Text>
+										</View>
+									</RepDataCard>
+								);
+							}
+						})}
+					<Text style={styles.title}>Professional Experience:</Text>
+					{currentRepContactInfo.professionalExperience &&
+						currentRepContactInfo.professionalExperience.map((experience) => {
+							if (experience) {
+								return (
+									<RepDataCard>
+										<View key={experience?.span || ''}>
+											<Text>{experience.title || ''}</Text>
+											<Text>{experience.organization || ''}</Text>
+											<Text>{experience?.span || ''}</Text>
+										</View>
+									</RepDataCard>
+								);
+							}
+						})}
+				</View>
+			</ScrollView>
+		</SafeAreaView>
 	);
 };
 

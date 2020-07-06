@@ -27,7 +27,10 @@ const CurrentBallot = (props) => {
 
 	const selectRepHandler = (repData) => {
 		props.navigation.navigate('SelectedRep', {
-			repData,
+			data: {
+				repData,
+				isForBallot: true,
+			},
 		});
 	};
 
