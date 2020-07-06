@@ -40,8 +40,8 @@ const CurrentBallot = (props) => {
 	}
 
 	return (
-		<ScrollView>
-			<View style={styles.screen}>
+		<ScrollView contentContainerStyle={styles.screen}>
+			<View>
 				{ballot &&
 					Object.keys(ballot).map((key) => {
 						return (
@@ -49,15 +49,17 @@ const CurrentBallot = (props) => {
 								<Text>{key}</Text>
 								{ballot[key].map((candidate) => {
 									return (
-										<RepCard
-											photo={candidate.photo}
-											office={candidate.office}
-											name={candidate.name}
-											party={candidate.party}
-											// onSelect={() => {
-											// 	selectRepHandler(itemData.item);
-											// }}
-										/>
+										<View key={candidate.candidate_id}>
+											<RepCard
+												photo={candidate.photo}
+												office={candidate.office}
+												name={candidate.name}
+												party={candidate.party}
+												onSelect={() => {
+													selectRepHandler(candidate);
+												}}
+											/>
+										</View>
 									);
 								})}
 							</View>
