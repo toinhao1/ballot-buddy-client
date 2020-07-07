@@ -9,7 +9,7 @@ import Colors from '../../constants/Colors';
 
 const CurrentBallot = (props) => {
 	const ballot = useSelector((state) => state.ballot.currentBallot);
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(false);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -22,7 +22,9 @@ const CurrentBallot = (props) => {
 				console.log(err);
 			}
 		};
-		getBallot();
+		if (Object.keys(ballot).length == 0) {
+			getBallot();
+		}
 	}, [dispatch]);
 
 	const selectRepHandler = (repData) => {
@@ -56,6 +58,7 @@ const CurrentBallot = (props) => {
 									return (
 										<View key={candidate.candidate_id}>
 											<RepCard
+												incumbent={candidate.incumbent}
 												photo={candidate.photo}
 												office={candidate.office}
 												name={candidate.name}

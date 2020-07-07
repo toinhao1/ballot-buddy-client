@@ -16,12 +16,12 @@ import ContactInfoCard from '../../components/ContactInfoCard';
 import RepDataCard from '../../components/RepDataCard';
 
 const CertainRep = (props) => {
-	const [isLoading, setIsLoading] = useState();
+	const { repData, isForBallot } = props.navigation.getParam('data');
+	const [isLoading, setIsLoading] = useState(false);
 	const currentRepContactInfo = useSelector(
 		(state) => state.representatives.selectedRepInfo
 	);
-	const { repData, isForBallot } = props.navigation.getParam('data');
-
+	let specificRep = currentRepContactInfo[repData.name];
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -34,10 +34,12 @@ const CertainRep = (props) => {
 				console.log(err);
 			}
 		};
-		callRepData(repData, isForBallot);
+		if (repData.candidate_id !== specificRep?.candidateId) {
+			callRepData(repData, isForBallot);
+		}
 	}, [dispatch]);
 
-	if (isLoading || !currentRepContactInfo.newsArticles) {
+	if (isLoading || !specificRep?.newsArticles) {
 		return (
 			<View style={styles.loadingScreen}>
 				<ActivityIndicator size="large" color={Colors.primary} />
@@ -55,10 +57,10 @@ const CertainRep = (props) => {
 						name={repData.name}
 						party={repData.party}
 					/>
-					<ContactInfoCard currentRepContactInfo={currentRepContactInfo} />
+					<ContactInfoCard currentRepContactInfo={specificRep} />
 					<Text style={styles.title}>Recent News:</Text>
-					{currentRepContactInfo.newsArticles.length > 0 ? (
-						currentRepContactInfo.newsArticles.map((article, index) => {
+					{specificRep.newsArticles.length > 0 ? (
+						specificRep.newsArticles.map((article, index) => {
 							return (
 								<RepDataCard key={article.description + index}>
 									<View>
@@ -79,38 +81,34 @@ const CertainRep = (props) => {
 					)}
 
 					<Text style={styles.title}>Political Experience:</Text>
-					{Array.isArray(currentRepContactInfo.politicalExperience) ? (
-						currentRepContactInfo.politicalExperience.map(
-							(experience, index) => {
-								return (
-									<RepDataCard key={repData.candidate_id + index}>
-										<View>
-											<Text>{experience?.title || ''}</Text>
-											<Text>{experience?.organization || ''}</Text>
-											<Text>{experience?.span || ''}</Text>
-										</View>
-									</RepDataCard>
-								);
-							}
-						)
+					{Array.isArray(specificRep.politicalExperience) ? (
+						specificRep.politicalExperience.map((experience, index) => {
+							return (
+								<RepDataCard key={repData.candidate_id + index}>
+									<View>
+										<Text>{experience?.title || ''}</Text>
+										<Text>{experience?.organization || ''}</Text>
+										<Text>{experience?.span || ''}</Text>
+									</View>
+								</RepDataCard>
+							);
+						})
 					) : (
 						<Text>Not Available</Text>
 					)}
 					<Text style={styles.title}>Professional Experience:</Text>
-					{Array.isArray(currentRepContactInfo.professionalExperience) ? (
-						currentRepContactInfo.professionalExperience.map(
-							(experience, index) => {
-								return (
-									<RepDataCard key={repData.candidate_id + index}>
-										<View>
-											<Text>{experience?.title || ''}</Text>
-											<Text>{experience?.organization || ''}</Text>
-											<Text>{experience?.span || ''}</Text>
-										</View>
-									</RepDataCard>
-								);
-							}
-						)
+					{Array.isArray(specificRep.professionalExperience) ? (
+						specificRep.professionalExperience.map((experience, index) => {
+							return (
+								<RepDataCard key={repData.candidate_id + index}>
+									<View>
+										<Text>{experience?.title || ''}</Text>
+										<Text>{experience?.organization || ''}</Text>
+										<Text>{experience?.span || ''}</Text>
+									</View>
+								</RepDataCard>
+							);
+						})
 					) : (
 						<Text>Not Available</Text>
 					)}
