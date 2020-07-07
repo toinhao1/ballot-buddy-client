@@ -58,6 +58,7 @@ const CurrentBallot = (props) => {
 									return (
 										<View key={candidate.candidate_id}>
 											<RepCard
+												incumbent={candidate.incumbent}
 												photo={candidate.photo}
 												office={candidate.office}
 												name={candidate.name}

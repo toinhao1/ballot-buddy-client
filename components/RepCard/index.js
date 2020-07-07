@@ -27,14 +27,19 @@ const RepCard = (props) => {
 						<View style={styles.imageContainer}>
 							{!props.photo ? (
 								<View>
-									<Text>No Image Available</Text>
-									<Ionicons name="ios-person" size={125} color="black" />
+									{/* <Text>No Image Available</Text> */}
+									<Ionicons name="ios-person" size={150} color="black" />
 								</View>
 							) : (
 								<Image style={styles.image} source={{ uri: props.photo }} />
 							)}
 						</View>
 						<View style={styles.textContainer}>
+							<Text style={styles.repStatus}>
+								{props.incumbent && props.incumbent
+									? 'Incumbent'
+									: 'Challenger'}
+							</Text>
 							<Text ellipsizeMode="tail" numberOfLines={2}>
 								{props.office}
 							</Text>

@@ -14,10 +14,11 @@ export const sendCurrentReps = (data) => {
 	};
 };
 
-export const sendSelectedRepData = (data) => {
+export const sendSelectedRepData = (repData, name) => {
 	return {
 		type: GET_SELECTED_REP_CONTACT_INFO,
-		payload: data,
+		repData,
+		name,
 	};
 };
 
@@ -69,6 +70,7 @@ export const getSelectedRepContactInfo = (data, isForBallot) => async (
 		politicalExperience: politicalData,
 		professionalExperience: professionalData,
 		newsArticles: newsArticles.articles || null,
+		candidateId: additionalData.candidateId,
 	};
-	dispatch(sendSelectedRepData(repData));
+	dispatch(sendSelectedRepData(repData, data.name));
 };

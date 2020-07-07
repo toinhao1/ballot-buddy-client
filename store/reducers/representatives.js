@@ -18,7 +18,10 @@ export default (state = initialState, action) => {
 		case GET_SELECTED_REP_CONTACT_INFO:
 			return {
 				...state,
-				selectedRepInfo: action.payload,
+				selectedRepInfo: {
+					...state.selectedRepInfo,
+					[action.name]: action.repData,
+				},
 			};
 		default:
 			return state;

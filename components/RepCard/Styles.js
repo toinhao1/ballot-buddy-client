@@ -29,4 +29,9 @@ export const styles = StyleSheet.create({
 	textContainer: {
 		width: '65%',
 	},
+	repStatus: {
+		fontSize: 16,
+		marginBottom: 20,
+		color: 'red',
+	},
 });
