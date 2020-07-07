@@ -36,9 +36,11 @@ const RepCard = (props) => {
 						</View>
 						<View style={styles.textContainer}>
 							<Text style={styles.repStatus}>
-								{props.incumbent && props.incumbent
+								{props.incumbent
 									? 'Incumbent'
-									: 'Challenger'}
+									: props.incumbent === null
+									? 'Challenger'
+									: ''}
 							</Text>
 							<Text ellipsizeMode="tail" numberOfLines={2}>
 								{props.office}
