@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, View, ActivityIndicator, FlatList } from 'react-native';
+import { View, ActivityIndicator, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import RepCard from '../../components/RepCard';
@@ -22,12 +22,17 @@ const CurrentReps = (props) => {
 				console.log(err);
 			}
 		};
+		// if (reps.length == 0) {
 		callReps();
+		// }
 	}, [dispatch]);
 
 	const selectRepHandler = (repData) => {
 		props.navigation.navigate('SelectedRep', {
-			repData,
+			data: {
+				repData,
+				isForBallot: false,
+			},
 		});
 	};
 

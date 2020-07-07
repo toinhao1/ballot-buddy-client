@@ -29,36 +29,46 @@ export const getCurrentRepresentatives = () => async (dispatch) => {
 	dispatch(sendCurrentReps(response.data.data));
 };
 
-export const getSelectedRepContactInfo = (candidateId) => async (dispatch) => {
+export const getSelectedRepContactInfo = (data, isForBallot) => async (
+	dispatch
+) => {
 	const response = await axios.post(
 		`${endpoints.apiUrl}current-representative/office-data`,
-		{ candidateId }
+		{ data, isForBallot }
 	);
+	const { addressData, additionalData, newsArticles } = response.data;
+
 	let webSiteObject = {};
-	if (response.data.addressData.webaddress.address) {
-		response.data.addressData.webaddress.address.forEach((webSite) => {
+	if (addressData.webaddress && Array.isArray(addressData.webaddress.address)) {
+		addressData.webaddress.address.forEach((webSite) => {
 			webSiteObject[webSite.webAddressType] = webSite.webAddress;
 		});
+	} else if (addressData.webaddress) {
+		webSiteObject[addressData.webaddress.address.webAddressType] =
+			addressData.webaddress.address.webAddress;
+	}
+
+	let politicalData = '';
+	if (Array.isArray(additionalData.political.experience)) {
+		politicalData = additionalData.political.experience.slice(0, 5);
+	} else if (additionalData.political.experience !== undefined) {
+		politicalData = [additionalData.political.experience];
+	}
+
+	let professionalData = '';
+	if (Array.isArray(additionalData.professional.experience)) {
+		professionalData = additionalData.professional.experience.slice(0, 5);
+	} else if (additionalData.professional.experience !== undefined) {
+		professionalData = [additionalData.professional.experience];
 	}
 
 	const repData = {
-		address: response.data.addressData?.office?.address || null,
-		phoneNumber: response.data.addressData?.office?.phone?.phone1 || null,
+		address: addressData?.office?.address || null,
+		phoneNumber: addressData?.office?.phone?.phone1 || null,
 		webAddresses: webSiteObject,
-		// If the data is in an array slice the first 5 elements otherwise return the object in an array
-		politicalExperience: Array.isArray(
-			response.data.additionalData.political.experience
-		)
-			? response.data.additionalData.political.experience.slice(0, 5)
-			: [response.data.additionalData.political.experience] || '',
-		// If the data is in an array slice the first 5 elements otherwise return the object in an array
-
-		professionalExperience: Array.isArray(
-			response.data.additionalData.professional.experience
-		)
-			? response.data.additionalData.professional.experience.slice(0, 5)
-			: [response.data.additionalData.professional.experience] || '',
-		newsArticles: response.data.newsArticles.articles,
+		politicalExperience: politicalData,
+		professionalExperience: professionalData,
+		newsArticles: newsArticles.articles || null,
 	};
 	dispatch(sendSelectedRepData(repData));
 };
