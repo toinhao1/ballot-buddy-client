@@ -49,7 +49,9 @@ const CurrentBallot = (props) => {
 					Object.keys(ballot).map((key) => {
 						return (
 							<View key={key}>
-								<Text>{key}</Text>
+								<View style={styles.sectionContainer}>
+									<Text style={styles.sectionTitles}>{key}</Text>
+								</View>
 								{ballot[key].map((candidate) => {
 									return (
 										<View key={candidate.candidate_id}>

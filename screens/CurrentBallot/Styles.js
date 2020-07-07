@@ -6,5 +6,10 @@ export const styles = StyleSheet.create({
 		justifyContent: 'center',
 		padding: 10,
 	},
-	sections: {},
+	sectionTitles: {
+		fontSize: 24,
+	},
+	sectionContainer: {
+		alignItems: 'center',
+	},
 });

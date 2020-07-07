@@ -72,7 +72,7 @@ const BuddyNavigator = createDrawerNavigator(
 		contentComponent: (props) => {
 			const dispatch = useDispatch();
 			return (
-				<View style={{ flex: 1, paddingTop: 25 }}>
+				<View style={{ flex: 1, marginTop: 40 }}>
 					<SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
 						<DrawerNavigatorItems {...props} />
 						<Button

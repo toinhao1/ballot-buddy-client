@@ -39,34 +39,36 @@ export const getSelectedRepContactInfo = (data, isForBallot) => async (
 	const { addressData, additionalData, newsArticles } = response.data;
 
 	let webSiteObject = {};
-	if (Array.isArray(addressData.webaddress.address)) {
+	if (addressData.webaddress && Array.isArray(addressData.webaddress.address)) {
 		addressData.webaddress.address.forEach((webSite) => {
 			webSiteObject[webSite.webAddressType] = webSite.webAddress;
 		});
-	} else {
+	} else if (addressData.webaddress) {
 		webSiteObject[addressData.webaddress.address.webAddressType] =
 			addressData.webaddress.address.webAddress;
 	}
-	console.log(
-		addressData.webaddress.address,
-		Array.isArray(addressData.webaddress.address)
-	);
+
+	let politicalData = '';
+	if (Array.isArray(additionalData.political.experience)) {
+		politicalData = additionalData.political.experience.slice(0, 5);
+	} else if (additionalData.political.experience !== undefined) {
+		politicalData = [additionalData.political.experience];
+	}
+
+	let professionalData = '';
+	if (Array.isArray(additionalData.professional.experience)) {
+		professionalData = additionalData.professional.experience.slice(0, 5);
+	} else if (additionalData.professional.experience !== undefined) {
+		professionalData = [additionalData.professional.experience];
+	}
+
 	const repData = {
 		address: addressData?.office?.address || null,
 		phoneNumber: addressData?.office?.phone?.phone1 || null,
 		webAddresses: webSiteObject,
-		// If the data is in an array slice the first 5 elements otherwise return the object in an array
-		politicalExperience: Array.isArray(additionalData.political.experience)
-			? additionalData.political.experience.slice(0, 5)
-			: [additionalData.political.experience] || '',
-		// If the data is in an array slice the first 5 elements otherwise return the object in an array
-
-		professionalExperience: Array.isArray(
-			additionalData.professional.experience
-		)
-			? additionalData.professional.experience.slice(0, 5)
-			: [additionalData.professional.experience] || '',
-		newsArticles: newsArticles.articles,
+		politicalExperience: politicalData,
+		professionalExperience: professionalData,
+		newsArticles: newsArticles.articles || null,
 	};
 	dispatch(sendSelectedRepData(repData));
 };
