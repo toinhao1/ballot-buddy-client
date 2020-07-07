@@ -9,7 +9,7 @@ import Colors from '../../constants/Colors';
 
 const CurrentReps = (props) => {
 	const reps = useSelector((state) => state.representatives.reps);
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(false);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -22,9 +22,9 @@ const CurrentReps = (props) => {
 				console.log(err);
 			}
 		};
-		// if (reps.length == 0) {
-		callReps();
-		// }
+		if (reps.length == 0) {
+			callReps();
+		}
 	}, [dispatch]);
 
 	const selectRepHandler = (repData) => {
