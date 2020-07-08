@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
 	screen: {
 		flex: 1,
 		alignItems: 'center',
-		padding: 20,
+		padding: 10,
 	},
 	loadingScreen: {
 		flex: 1,

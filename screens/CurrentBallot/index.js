@@ -66,7 +66,14 @@ const CurrentBallot = (props) => {
 												onSelect={() => {
 													selectRepHandler(candidate);
 												}}
-											/>
+											>
+												<Text>
+													{candidate.office_id === 496 ||
+													candidate.office_id === 79
+														? 'Race: ' + candidate.district
+														: ''}
+												</Text>
+											</RepCard>
 										</View>
 									);
 								})}
