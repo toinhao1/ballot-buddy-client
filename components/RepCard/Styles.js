@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
 		overflow: 'hidden',
 	},
 	contentContainer: {
-		padding: 10,
+		padding: 15,
 		flexDirection: 'row',
 		alignItems: 'center',
 		overflow: 'hidden',
@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
 		marginRight: 10,
 	},
 	textContainer: {
-		width: '65%',
+		width: '60%',
 	},
 	repStatus: {
 		fontSize: 16,

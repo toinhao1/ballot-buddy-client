@@ -42,6 +42,7 @@ const RepCard = (props) => {
 									? 'Challenger'
 									: ''}
 							</Text>
+							{props.children}
 							<Text ellipsizeMode="tail" numberOfLines={2}>
 								{props.office}
 							</Text>
