@@ -11,7 +11,6 @@ import { Ionicons } from '@expo/vector-icons';
 
 import Card from '../Card';
 import { styles } from './Styles';
-import { render } from 'react-dom';
 
 class RepCard extends PureComponent {
 	render() {
