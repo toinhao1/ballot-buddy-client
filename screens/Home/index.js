@@ -1,22 +1,32 @@
 import React from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, View } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import HeaderButton from '../../components/HeaderButton';
+import TouchableCard from '../../components/TouchableCard';
 import { styles } from './Styles';
 
 const Home = (props) => {
 	return (
 		<View style={styles.screen}>
-			<Button
-				title="Current Reps"
-				onPress={() => props.navigation.navigate('CurrentRepresentatives')}
-			/>
-			<Text>This is a users main page. </Text>
-			<Button
-				title="Current Ballot"
-				onPress={() => props.navigation.navigate('CurrentBallot')}
-			/>
+			<TouchableCard
+				contentContainer={styles.contentContainer}
+				mainCard={styles.mainCard}
+				onSelect={() => props.navigation.navigate('CurrentRepresentatives')}
+			>
+				<View style={styles.textView}>
+					<Text style={styles.textStyle}>View your Current Reps Now!</Text>
+				</View>
+			</TouchableCard>
+			<TouchableCard
+				contentContainer={styles.contentContainer}
+				mainCard={styles.mainCard}
+				onSelect={() => props.navigation.navigate('CurrentBallot')}
+			>
+				<View style={styles.text}>
+					<Text style={styles.textStyle}>View your Current Ballot Now!</Text>
+				</View>
+			</TouchableCard>
 		</View>
 	);
 };

@@ -6,6 +6,10 @@ export const styles = StyleSheet.create({
 		maxHeight: 400,
 		margin: 10,
 	},
+	touchable: {
+		borderRadius: 10,
+		overflow: 'hidden',
+	},
 	contentContainer: {
 		padding: 10,
 	},
