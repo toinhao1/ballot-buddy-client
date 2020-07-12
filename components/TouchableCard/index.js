@@ -1,5 +1,10 @@
 import React from 'react';
-import { View, TouchableOpacity, Platform } from 'react-native';
+import {
+	View,
+	TouchableOpacity,
+	Platform,
+	TouchableNativeFeedback,
+} from 'react-native';
 
 import Card from '../Card';
 import { styles } from './Styles';

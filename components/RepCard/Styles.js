@@ -6,10 +6,6 @@ export const styles = StyleSheet.create({
 		maxHeight: 400,
 		margin: 20,
 	},
-	touchable: {
-		borderRadius: 10,
-		overflow: 'hidden',
-	},
 	contentContainer: {
 		padding: 15,
 		flexDirection: 'row',
@@ -30,8 +26,8 @@ export const styles = StyleSheet.create({
 		width: '60%',
 	},
 	repStatus: {
-		fontSize: 16,
-		marginBottom: 20,
+		fontSize: 20,
+		marginBottom: 15,
 		color: 'red',
 	},
 });

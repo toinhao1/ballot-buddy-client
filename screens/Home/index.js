@@ -10,20 +10,21 @@ const Home = (props) => {
 	return (
 		<View style={styles.screen}>
 			<TouchableCard
+				contentContainer={styles.contentContainer}
 				mainCard={styles.mainCard}
 				onSelect={() => props.navigation.navigate('CurrentRepresentatives')}
 			>
-				<View>
-					<Text>Current Reps</Text>
+				<View style={styles.textView}>
+					<Text style={styles.textStyle}>View your Current Reps Now!</Text>
 				</View>
 			</TouchableCard>
-			<Text>This is a users main page. </Text>
 			<TouchableCard
+				contentContainer={styles.contentContainer}
 				mainCard={styles.mainCard}
 				onSelect={() => props.navigation.navigate('CurrentBallot')}
 			>
-				<View>
-					<Text>Current Ballot</Text>
+				<View style={styles.text}>
+					<Text style={styles.textStyle}>View your Current Ballot Now!</Text>
 				</View>
 			</TouchableCard>
 		</View>
