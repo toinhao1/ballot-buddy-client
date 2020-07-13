@@ -32,10 +32,6 @@ export const sendUserEdits = (data) => {
 // functioanl actions
 export const setAddress = (address) => async (dispatch) => {
 	const response = await axios.post(`${endpoints.apiUrl}set-address`, address);
-
-	if (response.data.status === 400) {
-		throw new Error(response.data.error);
-	}
 	dispatch(sendAddress(address));
 };
 
@@ -43,10 +39,6 @@ export const getProfile = () => async (dispatch) => {
 	const response = await axios.get(`${endpoints.apiUrl}user-profile`);
 
 	const resData = response.data;
-
-	if (resData.status === 400) {
-		throw new Error(resData.error);
-	}
 	dispatch(sendUserProfile(resData.user));
 };
 
@@ -54,10 +46,5 @@ export const editUser = (email) => async (dispatch) => {
 	const response = await axios.put(`${endpoints.apiUrl}edit-user`, {
 		email,
 	});
-	const resData = response.data;
-
-	if (resData.status === 400) {
-		throw new Error(resData.error);
-	}
 	dispatch(sendUserEdits(email));
 };

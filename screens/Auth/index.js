@@ -64,13 +64,13 @@ const AuthScreen = (props) => {
 				await dispatch(action);
 				const userData = await AsyncStorage.getItem('userData');
 				const transFormedData = JSON.parse(userData);
-				if (transFormedData.hasAddress) {
+				if (transFormedData?.hasAddress) {
 					props.navigation.navigate('Buddy');
 					return;
 				}
 				props.navigation.navigate('Address');
 			} catch (err) {
-				setError(err.message);
+				setError(err.response.data.message);
 				setIsLoading(false);
 			}
 		} else {

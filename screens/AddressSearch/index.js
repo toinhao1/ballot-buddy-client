@@ -51,10 +51,11 @@ const AddressSearch = (props) => {
 			setError(null);
 			setIsLoading(true);
 			try {
+				console.log(formState.inputValues);
 				await dispatch(setAddress(formState.inputValues));
 				props.navigation.navigate('Buddy');
 			} catch (err) {
-				setError(err.message);
+				setError(err.response.data.message);
 				setIsLoading(false);
 			}
 		} else {
