@@ -16,7 +16,6 @@ class RepCard extends PureComponent {
 				<View style={styles.imageContainer}>
 					{!this.props.photo ? (
 						<View>
-							{/* <Text>No Image Available</Text> */}
 							<Ionicons name="ios-person" size={150} color="black" />
 						</View>
 					) : (

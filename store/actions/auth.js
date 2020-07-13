@@ -20,12 +20,7 @@ export const signUp = (email, password) => async (dispatch) => {
 		email,
 		password,
 	});
-
-	if (response.data.status === 400) {
-		throw new Error(response.data.error);
-	} else {
-		dispatch(login(email, password));
-	}
+	dispatch(login(email, password));
 };
 
 // when user signs in
@@ -35,9 +30,7 @@ export const login = (email, password) => async (dispatch) => {
 		password,
 	});
 	const resData = response.data;
-	if (resData.status === 400) {
-		throw new Error(resData.error);
-	}
+
 	dispatch(authenticate(resData.token, resData.userId, resData?.address));
 	saveDataToStorage(resData.token, resData.userId, !!resData?.address);
 };

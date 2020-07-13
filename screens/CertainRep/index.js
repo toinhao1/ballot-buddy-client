@@ -5,8 +5,12 @@ import {
 	ActivityIndicator,
 	ScrollView,
 	SafeAreaView,
+	Button,
 } from 'react-native';
+import * as WebBrowser from 'expo-web-browser';
 import { useDispatch, useSelector } from 'react-redux';
+import { AntDesign } from '@expo/vector-icons';
+import Collapsible from 'react-native-collapsible';
 
 import { getSelectedRepContactInfo } from '../../store/actions/representatives';
 import { styles } from './Styles';
@@ -17,6 +21,10 @@ import RepDataCard from '../../components/RepDataCard';
 
 const CertainRep = (props) => {
 	const { repData, isForBallot } = props.navigation.getParam('data');
+	const [newsCollapsed, setNewsCollapsed] = useState(true);
+	const [politicalExCollapsed, setPoliExCollapsed] = useState(true);
+	const [proExCollapsed, setProExCollapsed] = useState(true);
+
 	const [isLoading, setIsLoading] = useState(false);
 	const currentRepContactInfo = useSelector(
 		(state) => state.representatives.selectedRepInfo
@@ -58,60 +66,106 @@ const CertainRep = (props) => {
 						party={repData.party}
 					/>
 					<ContactInfoCard currentRepContactInfo={specificRep} />
-					<Text style={styles.title}>Recent News:</Text>
-					{specificRep.newsArticles.length > 0 ? (
-						specificRep.newsArticles.map((article, index) => {
-							return (
-								<RepDataCard key={article.description + index}>
-									<View>
-										<Text
-											onPress={() =>
-												WebBrowser.openBrowserAsync(`${article.url}`)
-											}
-										>
-											{article.title}
-										</Text>
-										<Text>Source: {article.source.name}</Text>
-									</View>
-								</RepDataCard>
-							);
-						})
-					) : (
-						<Text>Not Available</Text>
-					)}
+					<View style={styles.collapsibleTitle}>
+						<Text style={styles.title}>Recent News:</Text>
+						<AntDesign
+							name={!newsCollapsed ? 'down' : 'up'}
+							size={24}
+							color="black"
+							onPress={() => setNewsCollapsed(!newsCollapsed)}
+						/>
+					</View>
+					<Collapsible
+						style={styles.collapsible}
+						duration={1000}
+						enablePointerEvents
+						collapsed={newsCollapsed}
+					>
+						{specificRep.newsArticles.length > 0 ? (
+							specificRep.newsArticles.map((article, index) => {
+								return (
+									<RepDataCard key={article.description + index}>
+										<View>
+											<Text
+												onPress={() =>
+													WebBrowser.openBrowserAsync(`${article.url}`)
+												}
+											>
+												{article.title}
+											</Text>
+											<Text>Source: {article.source.name}</Text>
+										</View>
+									</RepDataCard>
+								);
+							})
+						) : (
+							<Text>Not Available</Text>
+						)}
+					</Collapsible>
 
-					<Text style={styles.title}>Political Experience:</Text>
-					{Array.isArray(specificRep.politicalExperience) ? (
-						specificRep.politicalExperience.map((experience, index) => {
-							return (
-								<RepDataCard key={repData.candidate_id + index}>
-									<View>
-										<Text>{experience?.title || ''}</Text>
-										<Text>{experience?.organization || ''}</Text>
-										<Text>{experience?.span || ''}</Text>
-									</View>
-								</RepDataCard>
-							);
-						})
-					) : (
-						<Text>Not Available</Text>
-					)}
-					<Text style={styles.title}>Professional Experience:</Text>
-					{Array.isArray(specificRep.professionalExperience) ? (
-						specificRep.professionalExperience.map((experience, index) => {
-							return (
-								<RepDataCard key={repData.candidate_id + index}>
-									<View>
-										<Text>{experience?.title || ''}</Text>
-										<Text>{experience?.organization || ''}</Text>
-										<Text>{experience?.span || ''}</Text>
-									</View>
-								</RepDataCard>
-							);
-						})
-					) : (
-						<Text>Not Available</Text>
-					)}
+					<View style={styles.collapsibleTitle}>
+						<Text style={styles.title}>Political Experience:</Text>
+						<AntDesign
+							name={!politicalExCollapsed ? 'down' : 'up'}
+							size={24}
+							color="black"
+							onPress={() => setPoliExCollapsed(!politicalExCollapsed)}
+						/>
+					</View>
+					<Collapsible
+						style={styles.collapsible}
+						duration={1000}
+						enablePointerEvents
+						collapsed={politicalExCollapsed}
+					>
+						{Array.isArray(specificRep.politicalExperience) ? (
+							specificRep.politicalExperience.map((experience, index) => {
+								return (
+									<RepDataCard key={repData.candidate_id + index}>
+										<View>
+											<Text>{experience?.title || ''}</Text>
+											<Text>{experience?.organization || ''}</Text>
+											<Text>{experience?.span || ''}</Text>
+										</View>
+									</RepDataCard>
+								);
+							})
+						) : (
+							<Text>Not Available</Text>
+						)}
+					</Collapsible>
+
+					<View style={styles.collapsibleTitle}>
+						<Text style={styles.title}>Professional Experience:</Text>
+						<AntDesign
+							name={!proExCollapsed ? 'down' : 'up'}
+							size={24}
+							color="black"
+							onPress={() => setProExCollapsed(!proExCollapsed)}
+						/>
+					</View>
+					<Collapsible
+						style={styles.collapsible}
+						duration={1000}
+						enablePointerEvents
+						collapsed={proExCollapsed}
+					>
+						{Array.isArray(specificRep.professionalExperience) ? (
+							specificRep.professionalExperience.map((experience, index) => {
+								return (
+									<RepDataCard key={repData.candidate_id + index}>
+										<View>
+											<Text>{experience?.title || ''}</Text>
+											<Text>{experience?.organization || ''}</Text>
+											<Text>{experience?.span || ''}</Text>
+										</View>
+									</RepDataCard>
+								);
+							})
+						) : (
+							<Text>Not Available</Text>
+						)}
+					</Collapsible>
 				</View>
 			</ScrollView>
 		</SafeAreaView>
