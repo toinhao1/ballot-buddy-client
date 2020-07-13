@@ -22,6 +22,9 @@ import RepDataCard from '../../components/RepDataCard';
 const CertainRep = (props) => {
 	const { repData, isForBallot } = props.navigation.getParam('data');
 	const [newsCollapsed, setNewsCollapsed] = useState(true);
+	const [politicalExCollapsed, setPoliExCollapsed] = useState(true);
+	const [proExCollapsed, setProExCollapsed] = useState(true);
+
 	const [isLoading, setIsLoading] = useState(false);
 	const currentRepContactInfo = useSelector(
 		(state) => state.representatives.selectedRepInfo
@@ -66,7 +69,7 @@ const CertainRep = (props) => {
 					<View style={styles.collapsible}>
 						<Text style={styles.title}>Recent News:</Text>
 						<AntDesign
-							name={newsCollapsed ? 'down' : 'up'}
+							name={!newsCollapsed ? 'down' : 'up'}
 							size={24}
 							color="black"
 							onPress={() => setNewsCollapsed(!newsCollapsed)}
@@ -99,38 +102,67 @@ const CertainRep = (props) => {
 						)}
 					</Collapsible>
 
-					<Text style={styles.title}>Political Experience:</Text>
-					{Array.isArray(specificRep.politicalExperience) ? (
-						specificRep.politicalExperience.map((experience, index) => {
-							return (
-								<RepDataCard key={repData.candidate_id + index}>
-									<View>
-										<Text>{experience?.title || ''}</Text>
-										<Text>{experience?.organization || ''}</Text>
-										<Text>{experience?.span || ''}</Text>
-									</View>
-								</RepDataCard>
-							);
-						})
-					) : (
-						<Text>Not Available</Text>
-					)}
-					<Text style={styles.title}>Professional Experience:</Text>
-					{Array.isArray(specificRep.professionalExperience) ? (
-						specificRep.professionalExperience.map((experience, index) => {
-							return (
-								<RepDataCard key={repData.candidate_id + index}>
-									<View>
-										<Text>{experience?.title || ''}</Text>
-										<Text>{experience?.organization || ''}</Text>
-										<Text>{experience?.span || ''}</Text>
-									</View>
-								</RepDataCard>
-							);
-						})
-					) : (
-						<Text>Not Available</Text>
-					)}
+					<View style={styles.collapsible}>
+						<Text style={styles.title}>Political Experience:</Text>
+						<AntDesign
+							name={!politicalExCollapsed ? 'down' : 'up'}
+							size={24}
+							color="black"
+							onPress={() => setPoliExCollapsed(!politicalExCollapsed)}
+						/>
+					</View>
+					<Collapsible
+						duration={1000}
+						enablePointerEvents
+						collapsed={politicalExCollapsed}
+					>
+						{Array.isArray(specificRep.politicalExperience) ? (
+							specificRep.politicalExperience.map((experience, index) => {
+								return (
+									<RepDataCard key={repData.candidate_id + index}>
+										<View>
+											<Text>{experience?.title || ''}</Text>
+											<Text>{experience?.organization || ''}</Text>
+											<Text>{experience?.span || ''}</Text>
+										</View>
+									</RepDataCard>
+								);
+							})
+						) : (
+							<Text>Not Available</Text>
+						)}
+					</Collapsible>
+
+					<View style={styles.collapsible}>
+						<Text style={styles.title}>Professional Experience:</Text>
+						<AntDesign
+							name={!proExCollapsed ? 'down' : 'up'}
+							size={24}
+							color="black"
+							onPress={() => setProExCollapsed(!proExCollapsed)}
+						/>
+					</View>
+					<Collapsible
+						duration={1000}
+						enablePointerEvents
+						collapsed={proExCollapsed}
+					>
+						{Array.isArray(specificRep.professionalExperience) ? (
+							specificRep.professionalExperience.map((experience, index) => {
+								return (
+									<RepDataCard key={repData.candidate_id + index}>
+										<View>
+											<Text>{experience?.title || ''}</Text>
+											<Text>{experience?.organization || ''}</Text>
+											<Text>{experience?.span || ''}</Text>
+										</View>
+									</RepDataCard>
+								);
+							})
+						) : (
+							<Text>Not Available</Text>
+						)}
+					</Collapsible>
 				</View>
 			</ScrollView>
 		</SafeAreaView>
