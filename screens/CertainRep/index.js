@@ -66,7 +66,7 @@ const CertainRep = (props) => {
 						party={repData.party}
 					/>
 					<ContactInfoCard currentRepContactInfo={specificRep} />
-					<View style={styles.collapsible}>
+					<View style={styles.collapsibleTitle}>
 						<Text style={styles.title}>Recent News:</Text>
 						<AntDesign
 							name={!newsCollapsed ? 'down' : 'up'}
@@ -76,6 +76,7 @@ const CertainRep = (props) => {
 						/>
 					</View>
 					<Collapsible
+						style={styles.collapsible}
 						duration={1000}
 						enablePointerEvents
 						collapsed={newsCollapsed}
@@ -102,7 +103,7 @@ const CertainRep = (props) => {
 						)}
 					</Collapsible>
 
-					<View style={styles.collapsible}>
+					<View style={styles.collapsibleTitle}>
 						<Text style={styles.title}>Political Experience:</Text>
 						<AntDesign
 							name={!politicalExCollapsed ? 'down' : 'up'}
@@ -112,6 +113,7 @@ const CertainRep = (props) => {
 						/>
 					</View>
 					<Collapsible
+						style={styles.collapsible}
 						duration={1000}
 						enablePointerEvents
 						collapsed={politicalExCollapsed}
@@ -133,7 +135,7 @@ const CertainRep = (props) => {
 						)}
 					</Collapsible>
 
-					<View style={styles.collapsible}>
+					<View style={styles.collapsibleTitle}>
 						<Text style={styles.title}>Professional Experience:</Text>
 						<AntDesign
 							name={!proExCollapsed ? 'down' : 'up'}
@@ -143,6 +145,7 @@ const CertainRep = (props) => {
 						/>
 					</View>
 					<Collapsible
+						style={styles.collapsible}
 						duration={1000}
 						enablePointerEvents
 						collapsed={proExCollapsed}

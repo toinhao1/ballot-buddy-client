@@ -15,10 +15,14 @@ export const styles = StyleSheet.create({
 		fontFamily: 'open-sans-bold',
 		fontSize: 18,
 	},
-	collapsible: {
-		justifyContent: 'space-evenly',
+	collapsibleTitle: {
+		justifyContent: 'space-between',
 		flexDirection: 'row',
 		width: '90%',
 		marginVertical: 15,
+	},
+	collapsible: {
+		paddingBottom: 30,
+		width: '100%',
 	},
 });
