@@ -5,8 +5,12 @@ import {
 	ActivityIndicator,
 	ScrollView,
 	SafeAreaView,
+	Button,
 } from 'react-native';
+import * as WebBrowser from 'expo-web-browser';
 import { useDispatch, useSelector } from 'react-redux';
+import { AntDesign } from '@expo/vector-icons';
+import Collapsible from 'react-native-collapsible';
 
 import { getSelectedRepContactInfo } from '../../store/actions/representatives';
 import { styles } from './Styles';
@@ -17,6 +21,7 @@ import RepDataCard from '../../components/RepDataCard';
 
 const CertainRep = (props) => {
 	const { repData, isForBallot } = props.navigation.getParam('data');
+	const [newsCollapsed, setNewsCollapsed] = useState(true);
 	const [isLoading, setIsLoading] = useState(false);
 	const currentRepContactInfo = useSelector(
 		(state) => state.representatives.selectedRepInfo
@@ -58,27 +63,41 @@ const CertainRep = (props) => {
 						party={repData.party}
 					/>
 					<ContactInfoCard currentRepContactInfo={specificRep} />
-					<Text style={styles.title}>Recent News:</Text>
-					{specificRep.newsArticles.length > 0 ? (
-						specificRep.newsArticles.map((article, index) => {
-							return (
-								<RepDataCard key={article.description + index}>
-									<View>
-										<Text
-											onPress={() =>
-												WebBrowser.openBrowserAsync(`${article.url}`)
-											}
-										>
-											{article.title}
-										</Text>
-										<Text>Source: {article.source.name}</Text>
-									</View>
-								</RepDataCard>
-							);
-						})
-					) : (
-						<Text>Not Available</Text>
-					)}
+					<View style={styles.collapsible}>
+						<Text style={styles.title}>Recent News:</Text>
+						<AntDesign
+							name={newsCollapsed ? 'down' : 'up'}
+							size={24}
+							color="black"
+							onPress={() => setNewsCollapsed(!newsCollapsed)}
+						/>
+					</View>
+					<Collapsible
+						duration={1000}
+						enablePointerEvents
+						collapsed={newsCollapsed}
+					>
+						{specificRep.newsArticles.length > 0 ? (
+							specificRep.newsArticles.map((article, index) => {
+								return (
+									<RepDataCard key={article.description + index}>
+										<View>
+											<Text
+												onPress={() =>
+													WebBrowser.openBrowserAsync(`${article.url}`)
+												}
+											>
+												{article.title}
+											</Text>
+											<Text>Source: {article.source.name}</Text>
+										</View>
+									</RepDataCard>
+								);
+							})
+						) : (
+							<Text>Not Available</Text>
+						)}
+					</Collapsible>
 
 					<Text style={styles.title}>Political Experience:</Text>
 					{Array.isArray(specificRep.politicalExperience) ? (
