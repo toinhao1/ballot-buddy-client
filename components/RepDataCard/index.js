@@ -8,6 +8,7 @@ const RepDataCard = (props) => {
 		<TouchableCard
 			mainCard={styles.mainCard}
 			contentContainer={styles.contentContainer}
+			onSelect={props.onSelect}
 		>
 			{props.children}
 		</TouchableCard>

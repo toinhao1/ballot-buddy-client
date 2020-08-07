@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-	View,
-	TouchableOpacity,
-	Platform,
-	TouchableNativeFeedback,
-} from 'react-native';
+import { View, TouchableOpacity, Platform, TouchableNativeFeedback } from 'react-native';
 
 import Card from '../Card';
 import { styles } from './Styles';
@@ -16,10 +11,10 @@ const TouchableCard = (props) => {
 		TouchableCmp = TouchableNativeFeedback;
 	}
 	return (
-		<Card style={props.mainCard}>
+		<Card style={props.mainCard || styles.mainCard}>
 			<View style={styles.touchable}>
 				<TouchableCmp onPress={props.onSelect} useForeground={true}>
-					<View style={props.contentContainer}>{props.children}</View>
+					<View style={props.contentContainer || styles.contentContainer}>{props.children}</View>
 				</TouchableCmp>
 			</View>
 		</Card>

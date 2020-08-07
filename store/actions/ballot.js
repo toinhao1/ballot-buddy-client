@@ -13,9 +13,7 @@ export const sendCurrentBallot = (data) => {
 // functional actions
 
 export const getCurrentBallot = () => async (dispatch) => {
-	const response = await axios.get(
-		`${endpoints.apiUrl}current-representatives/ballot`
-	);
+	const response = await axios.get(`${endpoints.apiUrl}current-ballot`);
 
-	dispatch(sendCurrentBallot(response.data.data));
+	dispatch(sendCurrentBallot(response.data.ballot));
 };
