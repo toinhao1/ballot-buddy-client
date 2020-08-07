@@ -11,16 +11,16 @@ const CertainMeasure = (props) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const dispatch = useDispatch();
 
-	// useEffect(() => {
-	// 	const getBallotMeasure = async () => {
-	// 		setIsLoading(true);
-	// 		try {
-	// 			await dispatch(getMeasureDetails(measureId));
-	// 			setIsLoading(false);
-	// 		} catch (err) {}
-	// 	};
-	// 	getBallotMeasure();
-	// }, [dispatch]);
+	useEffect(() => {
+		const getBallotMeasure = async () => {
+			setIsLoading(true);
+			try {
+				await dispatch(getMeasureDetails(measureId));
+				setIsLoading(false);
+			} catch (err) {}
+		};
+		getBallotMeasure();
+	}, [dispatch]);
 
 	if (isLoading) {
 		return (
