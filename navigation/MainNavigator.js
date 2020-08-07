@@ -1,9 +1,6 @@
 import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import {
-	createDrawerNavigator,
-	DrawerNavigatorItems,
-} from 'react-navigation-drawer';
+import { createDrawerNavigator, DrawerNavigatorItems } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
 import { Platform, SafeAreaView, Button, View } from 'react-native';
 import { useDispatch } from 'react-redux';
@@ -21,6 +18,7 @@ import EditAddress from '../screens/EditAddress';
 import CurrentReps from '../screens/CurrentReps';
 import CurrentBallot from '../screens/CurrentBallot';
 import CertainRep from '../screens/CertainRep';
+import CertainMeasure from '../screens/CertainMeasure';
 
 const defaultNavOptions = {
 	headerStyle: {
@@ -43,6 +41,7 @@ const UserAccessNavigator = createStackNavigator(
 		CurrentRepresentatives: CurrentReps,
 		CurrentBallot: CurrentBallot,
 		SelectedRep: CertainRep,
+		SelectedMeasure: CertainMeasure,
 	},
 	{
 		defaultNavigationOptions: defaultNavOptions,

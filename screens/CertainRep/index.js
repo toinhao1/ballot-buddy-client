@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-	Text,
-	View,
-	ActivityIndicator,
-	ScrollView,
-	SafeAreaView,
-	Button,
-} from 'react-native';
+import { Text, View, ActivityIndicator, ScrollView, SafeAreaView, Button } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { useDispatch, useSelector } from 'react-redux';
 import { AntDesign } from '@expo/vector-icons';
@@ -26,9 +19,7 @@ const CertainRep = (props) => {
 	const [proExCollapsed, setProExCollapsed] = useState(true);
 
 	const [isLoading, setIsLoading] = useState(false);
-	const currentRepContactInfo = useSelector(
-		(state) => state.representatives.selectedRepInfo
-	);
+	const currentRepContactInfo = useSelector((state) => state.representatives.selectedRepInfo);
 	let specificRep = currentRepContactInfo[repData.name];
 	const dispatch = useDispatch();
 
@@ -36,7 +27,7 @@ const CertainRep = (props) => {
 		const callRepData = async (repData, isForBallot) => {
 			setIsLoading(true);
 			try {
-				await dispatch(getSelectedRepContactInfo(repData, isForBallot));
+				dispatch(getSelectedRepContactInfo(repData, isForBallot));
 				setIsLoading(false);
 			} catch (err) {
 				console.log(err);
@@ -86,11 +77,7 @@ const CertainRep = (props) => {
 								return (
 									<RepDataCard key={article.description + index}>
 										<View>
-											<Text
-												onPress={() =>
-													WebBrowser.openBrowserAsync(`${article.url}`)
-												}
-											>
+											<Text onPress={() => WebBrowser.openBrowserAsync(`${article.url}`)}>
 												{article.title}
 											</Text>
 											<Text>Source: {article.source.name}</Text>

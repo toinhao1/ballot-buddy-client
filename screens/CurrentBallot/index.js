@@ -15,10 +15,10 @@ const CurrentBallot = (props) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		const getBallot = async () => {
+		const getBallot = () => {
 			setIsLoading(true);
 			try {
-				await dispatch(getCurrentBallot());
+				dispatch(getCurrentBallot());
 				setIsLoading(false);
 			} catch (err) {
 				console.log(err);
@@ -35,6 +35,12 @@ const CurrentBallot = (props) => {
 				repData,
 				isForBallot: true,
 			},
+		});
+	};
+
+	const selectMeasureHandler = (measureData) => {
+		props.navigation.navigate('SelectedMeasure', {
+			measureData,
 		});
 	};
 
@@ -94,7 +100,8 @@ const CurrentBallot = (props) => {
 								<View key={measure.measureId}>
 									<RepDataCard
 										onSelect={() => {
-											selectRepHandler(candidate);
+											console.log('Hello there!');
+											selectMeasureHandler(measure);
 										}}
 									>
 										<View>
