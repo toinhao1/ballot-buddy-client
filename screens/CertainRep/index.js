@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, ActivityIndicator, ScrollView, SafeAreaView, Button } from 'react-native';
+import { Text, View, ActivityIndicator, ScrollView, SafeAreaView } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { useDispatch, useSelector } from 'react-redux';
 import { AntDesign } from '@expo/vector-icons';
@@ -27,7 +27,7 @@ const CertainRep = (props) => {
 		const callRepData = async (repData, isForBallot) => {
 			setIsLoading(true);
 			try {
-				dispatch(getSelectedRepContactInfo(repData, isForBallot));
+				await dispatch(getSelectedRepContactInfo(repData, isForBallot));
 				setIsLoading(false);
 			} catch (err) {
 				console.log(err);
