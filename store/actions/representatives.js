@@ -24,19 +24,15 @@ export const sendSelectedRepData = (repData, name) => {
 
 // functional actions
 export const getCurrentRepresentatives = () => async (dispatch) => {
-	const response = await axios.get(
-		`${endpoints.apiUrl}current-representatives`
-	);
+	const response = await axios.get(`${endpoints.apiUrl}current-representatives`);
 	dispatch(sendCurrentReps(response.data.data));
 };
 
-export const getSelectedRepContactInfo = (data, isForBallot) => async (
-	dispatch
-) => {
-	const response = await axios.post(
-		`${endpoints.apiUrl}current-representative/office-data`,
-		{ data, isForBallot }
-	);
+export const getSelectedRepContactInfo = (data, isForBallot) => async (dispatch) => {
+	const response = await axios.post(`${endpoints.apiUrl}current-representative/office-data`, {
+		data,
+		isForBallot,
+	});
 	const { addressData, additionalData, newsArticles } = response.data;
 
 	let webSiteObject = {};
@@ -44,7 +40,7 @@ export const getSelectedRepContactInfo = (data, isForBallot) => async (
 		addressData.webaddress.address.forEach((webSite) => {
 			webSiteObject[webSite.webAddressType] = webSite.webAddress;
 		});
-	} else if (addressData.webaddress) {
+	} else if (addressData.webaddress && addressData.webaddress.address.webAddress) {
 		webSiteObject[addressData.webaddress.address.webAddressType] =
 			addressData.webaddress.address.webAddress;
 	}
