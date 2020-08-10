@@ -16,7 +16,7 @@ const CurrentReps = (props) => {
 		const callReps = async () => {
 			setIsLoading(true);
 			try {
-				dispatch(getCurrentRepresentatives());
+				await dispatch(getCurrentRepresentatives());
 				setIsLoading(false);
 			} catch (err) {
 				console.log(err);

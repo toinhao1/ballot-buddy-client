@@ -15,10 +15,10 @@ const CurrentBallot = (props) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		const getBallot = () => {
+		const getBallot = async () => {
 			setIsLoading(true);
 			try {
-				dispatch(getCurrentBallot());
+				await dispatch(getCurrentBallot());
 				setIsLoading(false);
 			} catch (err) {
 				console.log(err);
@@ -100,7 +100,6 @@ const CurrentBallot = (props) => {
 								<View key={measure.measureId}>
 									<RepDataCard
 										onSelect={() => {
-											console.log('Hello there!');
 											selectMeasureHandler(measure);
 										}}
 									>

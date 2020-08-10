@@ -40,10 +40,10 @@ export const getCurrentBallot = () => async (dispatch) => {
 	dispatch(sendCurrentBallot(response.data.ballot));
 };
 
-export const getMeasureDetails = () => async (dispatch) => {
+export const getMeasureDetails = (measureId) => async (dispatch) => {
 	dispatch(startGettingBallotMeasure());
 	try {
-		const response = await axios.get(`${endpoints.apiUrl}selected-measure`);
+		const response = await axios.post(`${endpoints.apiUrl}selected-measure`, { measureId });
 
 		dispatch(gotBallotMeasureSuccess(response.data));
 	} catch (err) {
