@@ -16,13 +16,10 @@ export const styles = StyleSheet.create({
 	contentContainer: {
 		width: '100%',
 		height: '100%',
-		padding: 20,
-		justifyContent: 'center',
-		alignItems: 'center',
-		fontSize: 48,
+		padding: 25,
 	},
 	textStyle: {
-		fontSize: 42,
+		fontSize: 40,
 		fontFamily: 'open-sans-bold',
 		color: 'white',
 	},
