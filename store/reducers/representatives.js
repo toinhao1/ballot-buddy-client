@@ -1,11 +1,13 @@
 import {
 	GET_CURRENT_REPS,
 	GET_SELECTED_REP_CONTACT_INFO,
+	GET_SELECTED_CANDIDATE_CONTACT_INFO,
 } from '../actions/representatives';
 
 const initialState = {
 	reps: [],
 	selectedRepInfo: {},
+	selectedCandidateData: {},
 };
 
 export default (state = initialState, action) => {
@@ -20,6 +22,14 @@ export default (state = initialState, action) => {
 				...state,
 				selectedRepInfo: {
 					...state.selectedRepInfo,
+					[action.name]: action.repData,
+				},
+			};
+		case GET_SELECTED_CANDIDATE_CONTACT_INFO:
+			return {
+				...state,
+				selectedCandidateData: {
+					...state.selectedCandidateData,
 					[action.name]: action.repData,
 				},
 			};

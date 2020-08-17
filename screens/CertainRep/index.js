@@ -19,7 +19,11 @@ const CertainRep = (props) => {
 	const [proExCollapsed, setProExCollapsed] = useState(true);
 
 	const [isLoading, setIsLoading] = useState(false);
-	const currentRepContactInfo = useSelector((state) => state.representatives.selectedRepInfo);
+	const currentRepContactInfo = useSelector((state) =>
+		isForBallot
+			? state.representatives.selectedCandidateData
+			: state.representatives.selectedRepInfo
+	);
 	let specificRep = currentRepContactInfo[repData.name];
 	const dispatch = useDispatch();
 

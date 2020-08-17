@@ -5,6 +5,7 @@ import endpoints from '../../endpoints';
 // Constants
 export const GET_CURRENT_REPS = 'GET_CURRENT_REPS';
 export const GET_SELECTED_REP_CONTACT_INFO = 'GET_SELECTED_REP_CONTACT_INFO';
+export const GET_SELECTED_CANDIDATE_CONTACT_INFO = 'GET_SELECTED_CANDIDATE_CONTACT_INFO';
 
 // reducer actions
 export const sendCurrentReps = (data) => {
@@ -17,6 +18,14 @@ export const sendCurrentReps = (data) => {
 export const sendSelectedRepData = (repData, name) => {
 	return {
 		type: GET_SELECTED_REP_CONTACT_INFO,
+		repData,
+		name,
+	};
+};
+
+export const sendSelectedCandidateData = (repData, name) => {
+	return {
+		type: GET_SELECTED_CANDIDATE_CONTACT_INFO,
 		repData,
 		name,
 	};
@@ -68,5 +77,9 @@ export const getSelectedRepContactInfo = (data, isForBallot) => async (dispatch)
 		newsArticles: newsArticles.articles || null,
 		candidateId: additionalData.candidateId,
 	};
-	dispatch(sendSelectedRepData(repData, data.name));
+	if (isForBallot) {
+		dispatch(sendSelectedCandidateData(repData, data.name));
+	} else {
+		dispatch(sendSelectedRepData(repData, data.name));
+	}
 };
