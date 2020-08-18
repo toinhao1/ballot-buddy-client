@@ -1,10 +1,13 @@
 import { StyleSheet } from 'react-native';
 
+import Colors from '../../constants/Colors';
+
 export const styles = StyleSheet.create({
 	mainCard: {
 		width: '90%',
 		maxHeight: 400,
-		margin: 20,
+		marginHorizontal: 20,
+		marginVertical: 10,
 	},
 	contentContainer: {
 		padding: 15,
@@ -15,6 +18,7 @@ export const styles = StyleSheet.create({
 	image: {
 		width: '100%',
 		height: '100%',
+		borderRadius: 6,
 	},
 	imageContainer: {
 		width: 125,
@@ -27,7 +31,16 @@ export const styles = StyleSheet.create({
 	},
 	repStatus: {
 		fontSize: 20,
-		marginBottom: 15,
-		color: 'red',
+		color: Colors.primary,
+	},
+	repOfficeText: {
+		fontFamily: 'open-sans-bold',
+		fontSize: 22,
+	},
+	repNameText: {
+		fontSize: 18,
+	},
+	repParty: {
+		fontSize: 16,
 	},
 });

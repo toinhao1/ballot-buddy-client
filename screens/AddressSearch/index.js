@@ -59,11 +59,9 @@ const AddressSearch = (props) => {
 				setIsLoading(false);
 			}
 		} else {
-			return Alert.alert(
-				'Please correct your errors',
-				'There are errors in the form',
-				[{ type: 'Okay' }]
-			);
+			return Alert.alert('Please correct your errors', 'There are errors in the form', [
+				{ type: 'Okay' },
+			]);
 		}
 	};
 
@@ -109,7 +107,7 @@ const AddressSearch = (props) => {
 						keyboardType="default"
 						required
 						minLength={5}
-						autoCapitalize="words"
+						autoCapitalize={'words'}
 						errorText="Please enter a valid city name."
 						onInputChange={inputChangeHandler}
 						initialValue=""
@@ -121,7 +119,7 @@ const AddressSearch = (props) => {
 						required
 						minLength={2}
 						maxLength={2}
-						autoCapitalize="characters"
+						autoCapitalize={'characters'}
 						errorText="Please enter a valid state."
 						onInputChange={inputChangeHandler}
 						initialValue=""
@@ -142,11 +140,7 @@ const AddressSearch = (props) => {
 						{isLoading ? (
 							<ActivityIndicator size="small" color={Colors.primary} />
 						) : (
-							<Button
-								title={'Submit'}
-								color={Colors.primary}
-								onPress={submissionHandler}
-							/>
+							<Button title={'Submit'} color={Colors.primary} onPress={submissionHandler} />
 						)}
 					</View>
 				</ScrollView>

@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 
+import Colors from '../../constants/Colors';
+
 export const styles = StyleSheet.create({
 	screen: {
 		flex: 1,
@@ -11,7 +13,7 @@ export const styles = StyleSheet.create({
 		height: '40%',
 		maxHeight: 400,
 		margin: 20,
-		backgroundColor: '#5f9ea0',
+		backgroundColor: Colors.accent,
 	},
 	contentContainer: {
 		width: '100%',

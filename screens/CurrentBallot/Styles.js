@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
 		fontSize: 24,
 	},
 	sectionContainer: {
-		alignItems: 'center',
+		alignItems: 'flex-start',
+		paddingLeft: 15,
 	},
 });

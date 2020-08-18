@@ -24,7 +24,7 @@ const CurrentBallot = (props) => {
 				console.log(err);
 			}
 		};
-		if (Object.keys(ballot).length == 0) {
+		if (Object.keys(ballot).length === 0) {
 			getBallot();
 		}
 	}, [dispatch]);
@@ -67,6 +67,7 @@ const CurrentBallot = (props) => {
 										return (
 											<View key={candidate.candidate_id}>
 												<RepCard
+													ballot={true}
 													incumbent={candidate.incumbent}
 													photo={candidate.photo}
 													office={candidate.office}
